@@ -1397,9 +1397,9 @@ table.spot-table a:hover {
   <section class="hero">
     <div class="hero-meta-row">
       <div class="eyebrow"><i data-lucide="sparkles" class="icon-sm"></i> 48-Hour Weekend Route</div>
-      <div class="live-weather">
+      <div class="live-weather" id="liveWeather">
         <span class="pulse"></span>
-        <span>Kodaikanal: 16°C · Misty</span>
+        <span id="weatherText" title="Live from Open-Meteo · Kodaikanal (2,133 m)">Kodaikanal: —</span>
       </div>
     </div>
 
@@ -2435,6 +2435,45 @@ document.addEventListener('DOMContentLoaded', () => {
   updateScrollSpy();
   if (window.lucide) lucide.createIcons();
 });
+
+// ================= LIVE WEATHER (Open-Meteo · no API key) =================
+// Kodaikanal town coordinates. Shows current conditions; hides honestly on error.
+const WEATHER_CODES = {
+  0: ['Clear sky'], 1: ['Mainly clear'], 2: ['Partly cloudy'], 3: ['Overcast'],
+  45: ['Fog'], 48: ['Fog'],
+  51: ['Light drizzle'], 53: ['Drizzle'], 55: ['Drizzle'],
+  56: ['Freezing drizzle'], 57: ['Freezing drizzle'],
+  61: ['Light rain'], 63: ['Rain'], 65: ['Heavy rain'],
+  66: ['Freezing rain'], 67: ['Freezing rain'],
+  71: ['Light snow'], 73: ['Snow'], 75: ['Heavy snow'], 77: ['Snow grains'],
+  80: ['Rain showers'], 81: ['Rain showers'], 82: ['Rain showers'],
+  85: ['Snow showers'], 86: ['Snow showers'],
+  95: ['Thunderstorm'], 96: ['Thunderstorm'], 99: ['Thunderstorm']
+};
+
+async function refreshWeather() {
+  const el = document.getElementById('weatherText');
+  const wrap = document.getElementById('liveWeather');
+  if (!el) return;
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast' +
+      '?latitude=10.2381&longitude=77.4892' +
+      '&current=temperature_2m,weather_code&timezone=auto';
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('weather ' + res.status);
+    const data = await res.json();
+    const c = data && data.current;
+    if (!c || c.temperature_2m === undefined) throw new Error('bad payload');
+    const code = (WEATHER_CODES[c.weather_code] || [''])[0];
+    const t = Math.round(c.temperature_2m);
+    el.textContent = 'Kodaikanal: ' + t + '°C' + (code ? ' · ' + code : '');
+  } catch (err) {
+    // Never show stale or fabricated data: hide the widget if the API is unreachable.
+    if (wrap) wrap.style.display = 'none';
+  }
+}
+refreshWeather();
+setInterval(refreshWeather, 15 * 60 * 1000);
 </script>
 </body>
 </html>
