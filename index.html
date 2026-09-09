@@ -1156,6 +1156,39 @@ table.spot-table a:hover {
   .app-container {
     padding: 0 14px;
   }
+
+  /* Fix topbar overflow on mobile */
+  .topbar {
+    gap: 8px;
+  }
+  .brand-group span {
+    font-size: 12px;
+  }
+  .brand-badge {
+    width: 26px;
+    height: 26px;
+  }
+  .progress-pill {
+    padding: 3px 8px;
+    font-size: 10.5px;
+    gap: 6px;
+  }
+  .progress-track {
+    width: 50px;
+  }
+  .btn-icon {
+    padding: 0 8px;
+    font-size: 11px;
+    height: 30px;
+  }
+
+  /* Hide Share button text on very small screens, keep icon */
+  #shareBtn .icon-sm ~ * {
+    display: none;
+  }
+  #shareBtn {
+    padding: 0 8px;
+  }
   .hero-title {
     font-size: 26px;
   }
@@ -1189,6 +1222,37 @@ table.spot-table a:hover {
   }
   .card-desc {
     font-size: 12.5px;
+  }
+}
+
+/* Very small mobile screens - aggressive topbar compression */
+@media (max-width: 420px) {
+  .app-container {
+    padding: 0 12px;
+  }
+  .topbar {
+    gap: 6px;
+  }
+  .brand-group span {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .progress-pill {
+    padding: 3px 6px;
+    font-size: 10px;
+    gap: 5px;
+  }
+  .progress-track {
+    width: 45px;
+  }
+  .btn-icon {
+    padding: 0 6px;
+    height: 28px;
+  }
+  .topbar-actions {
+    gap: 6px;
   }
 }
 </style>
