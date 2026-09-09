@@ -1,0 +1,856 @@
+<title>Kodaikanal Route Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+<style>
+:root {
+  --forest: #1a2e1f;
+  --fog: #f7f4ef;
+  --eucalyptus: #3d7a4a;
+  --meadow: #c4a265;
+  --laterite: #8b4c2a;
+  --mist: #e8e2d6;
+  --text: #1a2e1f;
+  --text-dim: #5e6b5a;
+  --surface: #ffffff;
+  --ground: var(--fog);
+  --route-line: var(--laterite);
+  --cluster-line: var(--eucalyptus);
+  --rating-color: var(--meadow);
+  --road-sign-bg: var(--forest);
+  --road-sign-text: var(--fog);
+  --spot-hover: #f0ebe2;
+  --divider: #d4cdbf;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --forest: #b8c9b0;
+    --fog: #111a11;
+    --eucalyptus: #6aad73;
+    --meadow: #c4a265;
+    --laterite: #c47a4a;
+    --mist: #1c261c;
+    --text: #d4ddd0;
+    --text-dim: #8a9486;
+    --surface: #161e16;
+    --ground: #0e150e;
+    --route-line: var(--laterite);
+    --cluster-line: var(--eucalyptus);
+    --rating-color: var(--meadow);
+    --road-sign-bg: #0a120a;
+    --road-sign-text: #d4ddd0;
+    --spot-hover: #1e281e;
+    --divider: #2a352a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --forest: #b8c9b0;
+  --fog: #111a11;
+  --eucalyptus: #6aad73;
+  --meadow: #c4a265;
+  --laterite: #c47a4a;
+  --mist: #1c261c;
+  --text: #d4ddd0;
+  --text-dim: #8a9486;
+  --surface: #161e16;
+  --ground: #0e150e;
+  --route-line: var(--laterite);
+  --cluster-line: var(--eucalyptus);
+  --rating-color: var(--meadow);
+  --road-sign-bg: #0a120a;
+  --road-sign-text: #d4ddd0;
+  --spot-hover: #1e281e;
+  --divider: #2a352a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--ground);
+  color: var(--text);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  line-height: 1.55;
+}
+
+/* ── Header ── */
+.header {
+  padding: 48px 24px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.header h1 {
+  font-family: 'DM Serif Display', 'Georgia', serif;
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 12px;
+}
+
+.header p {
+  color: var(--text-dim);
+  font-size: 15px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.header .route-summary {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--divider);
+  font-variant-numeric: tabular-nums;
+}
+
+.route-summary .stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--eucalyptus);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ── Route Container ── */
+.route {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  position: relative;
+}
+
+/* The main route line */
+.route::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 0;
+  bottom: 60px;
+  width: 3px;
+  background: var(--route-line);
+  opacity: 0.35;
+}
+
+/* ── Cluster ── */
+.cluster {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.cluster-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-left: 28px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+/* Cluster node on the route line */
+.cluster-node {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--route-line);
+  border: 3px solid var(--ground);
+  box-shadow: 0 0 0 2px var(--route-line);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.cluster-name {
+  font-family: 'DM Serif Display', 'Georgia', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.cluster-distance {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  padding-left: 62px;
+  margin-bottom: 16px;
+}
+
+/* ── Spots ── */
+.spots {
+  padding-left: 62px;
+  display: grid;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.spot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.spot:hover {
+  background: var(--spot-hover);
+}
+
+/* Branch line from route to spot */
+.spot::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 50%;
+  width: 20px;
+  height: 1px;
+  background: var(--cluster-line);
+  opacity: 0.3;
+}
+
+.spot::after {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cluster-line);
+  opacity: 0.5;
+}
+
+.spot-name {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.spot-detail {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.spot-right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.spot-rating {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rating-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.spot-reviews {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Road Sign (distance between clusters) ── */
+.road-sign {
+  margin: 20px 0 28px;
+  padding-left: 28px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.road-sign-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--route-line);
+  opacity: 0.5;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.road-sign-content {
+  background: var(--road-sign-bg);
+  color: var(--road-sign-text);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-left: 16px;
+  line-height: 1.4;
+  position: relative;
+}
+
+/* Arrow pointing left on sign */
+.road-sign-content::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid var(--road-sign-bg);
+}
+
+.road-sign-content span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.road-sign-content .sign-label {
+  opacity: 0.6;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Notes ── */
+.notes {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+.notes-inner {
+  background: var(--mist);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-left: 38px;
+}
+
+.notes h2 {
+  font-family: 'DM Serif Display', 'Georgia', serif;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.notes ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.notes li {
+  font-size: 14px;
+  color: var(--text-dim);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.notes li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--laterite);
+  opacity: 0.6;
+}
+
+/* ── Distance Table ── */
+.distance-table {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.distance-table-inner {
+  margin-left: 38px;
+}
+
+.distance-table h2 {
+  font-family: 'DM Serif Display', 'Georgia', serif;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.dtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+
+.dtable thead th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  padding: 0 12px 10px 0;
+  border-bottom: 2px solid var(--divider);
+}
+
+.dtable thead th:last-child {
+  text-align: right;
+  padding-right: 0;
+}
+
+.dtable tbody td {
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--divider);
+  vertical-align: top;
+}
+
+.dtable tbody td:last-child {
+  text-align: right;
+  padding-right: 0;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.dtable .route-col {
+  font-weight: 500;
+}
+
+.dtable .distance-col {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.dtable .time-col {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.weekend-badge {
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--laterite);
+  color: var(--fog);
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+  .header { padding: 32px 16px 28px; }
+  .route { padding: 0 16px 40px; }
+  .route::before { left: 40px; }
+  .cluster-header { padding-left: 16px; }
+  .cluster-distance { padding-left: 50px; }
+  .spots { padding-left: 50px; }
+  .road-sign { padding-left: 16px; }
+  .notes { padding: 0 16px 32px; }
+  .notes-inner { margin-left: 26px; padding: 18px 20px; }
+  .distance-table { padding: 0 16px 40px; }
+  .distance-table-inner { margin-left: 26px; }
+  .spot::before { left: -22px; width: 10px; }
+  .spot::after { left: -14px; width: 5px; height: 5px; }
+}
+</style>
+
+<div class="header">
+  <h1>Kodaikanal — Route & Distances</h1>
+  <p>14 spots across three clusters along the Palani Hills, ordered by driving distance outward from Kodaikanal town. Weekend travel times account for tourist traffic on ghat roads.</p>
+  <div class="route-summary">
+    <div class="stat">
+      <span class="stat-value">14</span>
+      <span class="stat-label">Spots</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Clusters</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">~45 km</span>
+      <span class="stat-label">Farthest point</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">~2 hrs</span>
+      <span class="stat-label">Longest drive</span>
+    </div>
+  </div>
+</div>
+
+<div class="route">
+
+  <!-- ════ Cluster 1: Kodaikanal Town ════ -->
+  <div class="cluster">
+    <div class="cluster-header">
+      <div class="cluster-node"></div>
+      <span class="cluster-name">Kodaikanal Town</span>
+    </div>
+    <div class="cluster-distance">All spots within 3–8 km · 10–30 min between each</div>
+
+    <div class="spots">
+      <a class="spot" href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Coaker's Walk</div>
+          <div class="spot-detail">In town centre · walkable from bus stand</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.4</div>
+          <div class="spot-reviews">861 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Pine Forest</div>
+          <div class="spot-detail">~3 km · 10–15 min drive</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.4</div>
+          <div class="spot-reviews">19,863 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Vattakanal Falls (Liril Falls)</div>
+          <div class="spot-detail">~5 km · 15–20 min drive + short trek down</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.1</div>
+          <div class="spot-reviews">9,575 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/8MvJmbNDhV1wM57Q8" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Moir Point</div>
+          <div class="spot-detail">~6 km · 15–20 min drive</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.2</div>
+          <div class="spot-reviews">12,190 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Pillar Rocks</div>
+          <div class="spot-detail">~7 km · 15–20 min drive</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.4</div>
+          <div class="spot-reviews">1,219 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/UuGm3jwUgsdswjg7A" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Guna Cave</div>
+          <div class="spot-detail">~7 km · 20 min drive · adjacent to Pillar Rocks road</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.2</div>
+          <div class="spot-reviews">19,734 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Dolphins Nose</div>
+          <div class="spot-detail">~8 km · 25–30 min drive · steep approach</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.4</div>
+          <div class="spot-reviews">6,980 reviews</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Road sign: Kodai → Poombarai -->
+  <div class="road-sign">
+    <div class="road-sign-node"></div>
+    <div class="road-sign-content">
+      <span><span class="sign-label">Dist</span> 18–20 km</span>
+      <span><span class="sign-label">Drive</span> 45 min–1 hr</span>
+      <span><span class="sign-label">Road</span> Winding ghat, single lane stretches</span>
+      <span class="weekend-badge">+15 min weekends</span>
+    </div>
+  </div>
+
+  <!-- ════ Cluster 2: Poombarai ════ -->
+  <div class="cluster">
+    <div class="cluster-header">
+      <div class="cluster-node"></div>
+      <span class="cluster-name">Poombarai & Surroundings</span>
+    </div>
+    <div class="cluster-distance">18–25 km from town · spots are 5–10 min apart</div>
+
+    <div class="spots">
+      <a class="spot" href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Poombarai Viewpoint</div>
+          <div class="spot-detail">~18 km from town · terraced valley views · best at sunrise</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.6</div>
+          <div class="spot-reviews">5,325 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Kookal Lake</div>
+          <div class="spot-detail">~22 km from town · 50 min–1 hr · quiet, few visitors</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.2</div>
+          <div class="spot-reviews">289 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Poondi View Point</div>
+          <div class="spot-detail">~25 km from town · 1 hr · sweeping panorama</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.6</div>
+          <div class="spot-reviews">130 reviews</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Road sign: Poombarai → Mannavannur -->
+  <div class="road-sign">
+    <div class="road-sign-node"></div>
+    <div class="road-sign-content">
+      <span><span class="sign-label">Dist</span> 22–25 km</span>
+      <span><span class="sign-label">Drive</span> 45 min–1 hr</span>
+      <span><span class="sign-label">Road</span> Narrow scenic route through shola forests</span>
+      <span class="weekend-badge">+20 min weekends</span>
+    </div>
+  </div>
+
+  <!-- ════ Cluster 3: Mannavannur ════ -->
+  <div class="cluster">
+    <div class="cluster-header">
+      <div class="cluster-node"></div>
+      <span class="cluster-name">Mannavannur</span>
+    </div>
+    <div class="cluster-distance">40–45 km from town · 1.5–2 hrs drive · all spots walkable from the lake</div>
+
+    <div class="spots">
+      <a class="spot" href="https://maps.app.goo.gl/VpJ97Bgd2MwZ3KUBA" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Mannavannur Lake + Grasslands</div>
+          <div class="spot-detail">Main attraction · wide meadows around the lake</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.6</div>
+          <div class="spot-reviews">3,796 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/N2N3AbDQSFkapdRJ7" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Mannavannur Viewpoint</div>
+          <div class="spot-detail">2–3 min walk from lake · elevated overlook</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.6</div>
+          <div class="spot-reviews">442 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/gMmsmxF3Arwu68Qj6" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Mannavannur Lake View Point</div>
+          <div class="spot-detail">5 min walk from lake · different angle</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.6</div>
+          <div class="spot-reviews">644 reviews</div>
+        </div>
+      </a>
+
+      <a class="spot" href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank" rel="noopener">
+        <div>
+          <div class="spot-name">Sheep Research Center & Rabbit Farm</div>
+          <div class="spot-detail">5–7 min drive from lake · family-friendly</div>
+        </div>
+        <div class="spot-right">
+          <div class="spot-rating">4.4</div>
+          <div class="spot-reviews">457 reviews</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Full Distance Table ── -->
+<div class="distance-table">
+  <div class="distance-table-inner">
+    <h2>All inter-spot distances</h2>
+    <div class="overflow-x">
+      <table class="dtable">
+        <thead>
+          <tr>
+            <th>Route</th>
+            <th>Distance</th>
+            <th>Weekday</th>
+            <th>Weekend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4" style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); padding-top:16px; border-bottom-color:transparent;">Within Kodaikanal Town</td></tr>
+          <tr>
+            <td class="route-col">Coaker's Walk → Pine Forest</td>
+            <td class="distance-col">~3 km</td>
+            <td class="time-col">10 min</td>
+            <td>12–15 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Pine Forest → Vattakanal Falls</td>
+            <td class="distance-col">~3 km</td>
+            <td class="time-col">10 min</td>
+            <td>12–15 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Vattakanal Falls → Moir Point</td>
+            <td class="distance-col">~2 km</td>
+            <td class="time-col">8 min</td>
+            <td>10 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Moir Point → Pillar Rocks</td>
+            <td class="distance-col">~3 km</td>
+            <td class="time-col">10 min</td>
+            <td>15 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Pillar Rocks → Guna Cave</td>
+            <td class="distance-col">~1 km</td>
+            <td class="time-col">5 min</td>
+            <td>5–8 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Guna Cave → Dolphins Nose</td>
+            <td class="distance-col">~2 km</td>
+            <td class="time-col">8 min</td>
+            <td>10–12 min</td>
+          </tr>
+
+          <tr><td colspan="4" style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); padding-top:20px; border-bottom-color:transparent;">Between Clusters</td></tr>
+          <tr>
+            <td class="route-col">Kodai Town → Poombarai Viewpoint</td>
+            <td class="distance-col">~18 km</td>
+            <td class="time-col">45 min</td>
+            <td>55 min–1 hr</td>
+          </tr>
+          <tr>
+            <td class="route-col">Kodai Town → Kookal Lake</td>
+            <td class="distance-col">~22 km</td>
+            <td class="time-col">50 min</td>
+            <td>1 hr–1 hr 10 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Kodai Town → Poondi View Point</td>
+            <td class="distance-col">~25 km</td>
+            <td class="time-col">55 min</td>
+            <td>1 hr 10 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Kodai Town → Mannavannur Lake</td>
+            <td class="distance-col">~42 km</td>
+            <td class="time-col">1 hr 30 min</td>
+            <td>1 hr 50 min–2 hr</td>
+          </tr>
+          <tr>
+            <td class="route-col">Poombarai → Mannavannur Lake</td>
+            <td class="distance-col">~24 km</td>
+            <td class="time-col">45 min</td>
+            <td>55 min–1 hr</td>
+          </tr>
+
+          <tr><td colspan="4" style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); padding-top:20px; border-bottom-color:transparent;">Within Poombarai Area</td></tr>
+          <tr>
+            <td class="route-col">Poombarai Viewpoint → Kookal Lake</td>
+            <td class="distance-col">~6 km</td>
+            <td class="time-col">15 min</td>
+            <td>18–20 min</td>
+          </tr>
+          <tr>
+            <td class="route-col">Kookal Lake → Poondi View Point</td>
+            <td class="distance-col">~5 km</td>
+            <td class="time-col">12 min</td>
+            <td>15 min</td>
+          </tr>
+
+          <tr><td colspan="4" style="font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); padding-top:20px; border-bottom-color:transparent;">Within Mannavannur</td></tr>
+          <tr>
+            <td class="route-col">Lake → Viewpoint</td>
+            <td class="distance-col">~0.3 km</td>
+            <td class="time-col">3 min walk</td>
+            <td>3 min walk</td>
+          </tr>
+          <tr>
+            <td class="route-col">Lake → Lake View Point</td>
+            <td class="distance-col">~0.5 km</td>
+            <td class="time-col">5 min walk</td>
+            <td>5 min walk</td>
+          </tr>
+          <tr>
+            <td class="route-col">Lake → Sheep & Rabbit Farm</td>
+            <td class="distance-col">~3 km</td>
+            <td class="time-col">7 min</td>
+            <td>7–10 min</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Notes ── -->
+<div class="notes">
+  <div class="notes-inner">
+    <h2>Driving on weekends</h2>
+    <ul>
+      <li>Ghat roads are single-lane in stretches; tourist traffic adds 15–30 min to inter-cluster drives on weekends</li>
+      <li>Start before 8 AM to clear the town-to-Poombarai stretch while roads are empty</li>
+      <li>Poombarai → Mannavannur road passes through shola forest; expect fog before 9 AM</li>
+      <li>Fill up in Kodaikanal town — no fuel stations on the Poombarai or Mannavannur routes</li>
+      <li>Mobile signal drops between Poombarai and Mannavannur; download offline maps</li>
+      <li>Mannavannur area may need a forest department permit — check at the Kodai forest office before heading out</li>
+    </ul>
+  </div>
+</div>
