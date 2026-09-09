@@ -508,6 +508,32 @@ body::before {
   color: #fff;
 }
 
+/* ================= ICONS ================= */
+.icon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  vertical-align: -2px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  flex-shrink: 0;
+}
+.icon-sm {
+  width: 12px;
+  height: 12px;
+  vertical-align: -1.5px;
+}
+.icon-star {
+  fill: currentColor;
+  stroke: none;
+  width: 11px;
+  height: 11px;
+  vertical-align: -1px;
+}
+
 /* ================= MASTER TABLE ================= */
 .table-section {
   margin-top: 34px;
@@ -671,7 +697,7 @@ table.spot-table a:hover { text-decoration: underline; }
   <header class="hero">
     <div class="hero-top">
       <span class="brand"><span class="cmd">⌘</span> Palakkad ⇄ Kodaikanal</span>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐ Theme</button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme"><svg class="icon icon-sm" viewBox="0 0 24 24" style="margin-right:2px"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor" stroke="none"/></svg>Theme</button>
     </div>
     <div class="hero-eyebrow">Road Trip Dispatch · 48 Hours</div>
     <h1 class="hero-title">Kodaikanal 48-Hour Itinerary</h1>
@@ -762,17 +788,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">01</span>
                 <span class="node-name">Poombarai Village &amp; Viewpoint</span>
               </div>
-              <span class="node-rating">★ 4.6 (5.3k)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (5.3k)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +18 km from Kodai Jnc</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +18 km from Kodai Jnc</span><span class="sep">·</span>
               <span>45 min climb</span>
             </div>
             <p class="node-desc">
               Stepped terraced garlic fields in early morning light. <strong>Breakfast (07:00–07:45):</strong> hot poori, dosas &amp; fresh mountain tea at local village stalls.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 30m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 30m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -795,17 +821,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">02</span>
                 <span class="node-name">Kookal Village &amp; Kookal Lake</span>
               </div>
-              <span class="node-rating">★ 4.2 (289)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.2 (289)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +14 km from Poombarai</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +14 km from Poombarai</span><span class="sep">·</span>
               <span>40 min drive</span>
             </div>
             <p class="node-desc">
               Untouched Shola forest lake &amp; traditional farming hamlet. Very serene morning walk along the lake banks with a minimal tourist footprint.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>2h 15m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>2h 15m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -828,17 +854,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">03</span>
                 <span class="node-name">Mannavanur Lake &amp; Grasslands</span>
               </div>
-              <span class="node-rating">★ 4.6 (3.8k)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (3.8k)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +22 km via Poombarai jnc</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +22 km via Poombarai jnc</span><span class="sep">·</span>
               <span>55 min drive</span>
             </div>
             <p class="node-desc">
               Wide rolling meadows &amp; pine fringes. Optional coracle ride. <strong>Lunch (12:45–14:00):</strong> village-style meals at local eateries near the lake gate.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>2h 15m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>2h 15m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -861,17 +887,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">04 · 05</span>
                 <span class="node-name">Sheep Research Center &amp; Viewpoints</span>
               </div>
-              <span class="node-rating">★ 4.4 (457)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (457)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +3 km from Lake</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +3 km from Lake</span><span class="sep">·</span>
               <span>8 min drive / walk</span>
             </div>
             <p class="node-desc">
               ICAR research center with Bharat Merino sheep &amp; Angora rabbits, plus elevated lake-viewpoint knolls. Relaxed post-lunch stroll.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 30m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 30m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -894,17 +920,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">06</span>
                 <span class="node-name">Poondi Village &amp; Peak Viewpoint</span>
               </div>
-              <span class="node-rating">★ 4.6 (130)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (130)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +16 km from Mannavanur</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +16 km from Mannavanur</span><span class="sep">·</span>
               <span>40 min drive</span>
             </div>
             <p class="node-desc">
               Remote 2,210 m ridge peak overlooking untouched Kerala border forests. Perfect spot for <strong>sunset (17:30–18:00)</strong> and evening mist.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 45m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 45m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -928,7 +954,7 @@ table.spot-table a:hover { text-decoration: underline; }
               </div>
             </div>
             <div class="transit-chip">
-              <span>🏨 +35 km from Poondi</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M10 7h4M10 11h4M10 15h4"/></svg> +35 km from Poondi</span><span class="sep">·</span>
               <span>1h 15m return drive</span>
             </div>
             <p class="node-desc">
@@ -967,17 +993,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">07</span>
                 <span class="node-name">Dolphin's Nose &amp; Echo Rock Trek</span>
               </div>
-              <span class="node-rating">★ 4.4 (6.9k)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (6.9k)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +6 km from Town (05:15 depart)</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +6 km from Town (05:15 depart)</span><span class="sep">·</span>
               <span>3 km round-trip hike</span>
             </div>
             <p class="node-desc">
               <strong>Early start beats midday heat &amp; the parking jam.</strong> Spectacular 2,000 m cliff-drop views before heavy fog rolls in.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>2h 45m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>2h 45m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -1000,17 +1026,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">08</span>
                 <span class="node-name">Vattakanal Falls &amp; Brunch</span>
               </div>
-              <span class="node-rating">★ 4.1 (9.5k)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.1 (9.5k)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +1.5 km back to trailhead</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +1.5 km back to trailhead</span><span class="sep">·</span>
               <span>10 min drive</span>
             </div>
             <p class="node-desc">
               Cascading forest stream &amp; bridge. <strong>Brunch (09:30–10:30):</strong> fresh coffee, sandwiches &amp; shakshuka at Altaf's Cafe / Vattakanal village.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 45m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 45m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -1033,17 +1059,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">09 · 10</span>
                 <span class="node-name">Kodaikanal Lake &amp; Coaker's Walk</span>
               </div>
-              <span class="node-rating">★ 4.4 (Coaker's)</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (Coaker's)</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +4.5 km into Town</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +4.5 km into Town</span><span class="sep">·</span>
               <span>15 min drive</span>
             </div>
             <p class="node-desc">
               Stroll the Star Lake perimeter, then Coaker's Walk paved valley promenade. <strong>Lunch / snack:</strong> light lunch in town before the corridor.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>2 hours</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>2 hours</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -1066,17 +1092,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">11 · 12</span>
                 <span class="node-name">Pillar Rocks &amp; Guna Cave</span>
               </div>
-              <span class="node-rating">★ 4.4 / 4.2</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 / 4.2</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +7 km from Town</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +7 km from Town</span><span class="sep">·</span>
               <span>20 min drive</span>
             </div>
             <p class="node-desc">
               Three 122 m granite pillars rising above the cloud canopy + ancient tree-root ravines at Devil's Kitchen. Adjacent spots, 400 m apart.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 45m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 45m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -1099,17 +1125,17 @@ table.spot-table a:hover { text-decoration: underline; }
                 <span class="node-num">13 · 14</span>
                 <span class="node-name">Pine Forest &amp; Moir Point</span>
               </div>
-              <span class="node-rating">★ 4.4 / 4.2</span>
+              <span class="node-rating"><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 / 4.2</span>
             </div>
             <div class="transit-chip">
-              <span>🚗 +3 km along 12-Mile road</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> +3 km along 12-Mile road</span><span class="sep">·</span>
               <span>8 min drive</span>
             </div>
             <p class="node-desc">
               Walk through dense towering pine woods, finishing at Moir Point valley lookout — the gateway to Berijam forest.
             </p>
             <div class="node-footer">
-              <span class="node-dwell">⏱ Dwell <b>1h 30m</b></span>
+              <span class="node-dwell"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Dwell <b>1h 30m</b></span>
               <a class="node-map-btn" href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Open Map ↗</a>
             </div>
           </div>
@@ -1133,7 +1159,7 @@ table.spot-table a:hover { text-decoration: underline; }
               </div>
             </div>
             <div class="transit-chip">
-              <span>🏨 Town Base</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M10 7h4M10 11h4M10 15h4"/></svg> Town Base</span><span class="sep">·</span>
               <span>2.5 hours relaxed buffer</span>
             </div>
             <p class="node-desc">
@@ -1160,7 +1186,7 @@ table.spot-table a:hover { text-decoration: underline; }
               </div>
             </div>
             <div class="transit-chip">
-              <span>🚗 ≈170 km</span><span class="sep">·</span>
+              <span><svg class="icon" viewBox="0 0 24 24"><path d="M5 17h14v-4l-2-6H7L5 13v4z"/><circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.5" fill="currentColor"/></svg> ≈170 km</span><span class="sep">·</span>
               <span>~4.5 h drive + 1h 15m buffer</span>
             </div>
             <p class="node-desc">
@@ -1188,20 +1214,20 @@ table.spot-table a:hover { text-decoration: underline; }
         </tr>
       </thead>
       <tbody>
-        <tr><td>01</td><td class="spot-name-col">Poombarai Viewpoint</td><td>★ 4.6 (5.3k)</td><td>+18 km</td><td>1h 30m</td><td><a href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Map ↗</a></td></tr>
-        <tr><td>02</td><td class="spot-name-col">Kookal Lake &amp; Village</td><td>★ 4.2 (289)</td><td>+14 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
-        <tr><td>03</td><td class="spot-name-col">Mannavanur Lake</td><td>★ 4.6 (3.8k)</td><td>+22 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
-        <tr><td>04</td><td class="spot-name-col">Mannavanur Viewpoint</td><td>★ 4.6 (442)</td><td>+300 m</td><td>25m</td><td><a href="https://maps.app.goo.gl/N2N3AbDQSFkapdRJ7" target="_blank">Map ↗</a></td></tr>
-        <tr><td>05</td><td class="spot-name-col">Sheep Research Center</td><td>★ 4.4 (457)</td><td>+3 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Map ↗</a></td></tr>
-        <tr><td>06</td><td class="spot-name-col">Poondi Peak View Point</td><td>★ 4.6 (130)</td><td>+16 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Map ↗</a></td></tr>
-        <tr><td>07</td><td class="spot-name-col">Dolphin's Nose Trek</td><td>★ 4.4 (6.9k)</td><td>+6 km</td><td>2h 45m</td><td><a href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Map ↗</a></td></tr>
-        <tr><td>08</td><td class="spot-name-col">Vattakanal Falls</td><td>★ 4.1 (9.5k)</td><td>+1.5 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Map ↗</a></td></tr>
-        <tr><td>09</td><td class="spot-name-col">Kodaikanal Lake</td><td>★ 4.3 (Town)</td><td>+4.5 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
-        <tr><td>10</td><td class="spot-name-col">Coaker's Walk</td><td>★ 4.4 (861)</td><td>+1 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
-        <tr><td>11</td><td class="spot-name-col">Pillar Rocks</td><td>★ 4.4 (1.2k)</td><td>+7 km</td><td>50m</td><td><a href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Map ↗</a></td></tr>
-        <tr><td>12</td><td class="spot-name-col">Guna Cave</td><td>★ 4.2 (19.7k)</td><td>+400 m</td><td>50m</td><td><a href="https://maps.app.goo.gl/UuGm3jwUgsdswjg7A" target="_blank">Map ↗</a></td></tr>
-        <tr><td>13</td><td class="spot-name-col">Pine Forest</td><td>★ 4.4 (19.8k)</td><td>+2.5 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Map ↗</a></td></tr>
-        <tr><td>14</td><td class="spot-name-col">Moir Point</td><td>★ 4.2 (12.1k)</td><td>+1.5 km</td><td>35m</td><td><a href="https://maps.app.goo.gl/8MvJmbNDhV1wM57Q8" target="_blank">Map ↗</a></td></tr>
+        <tr><td>01</td><td class="spot-name-col">Poombarai Viewpoint</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (5.3k)</td><td>+18 km</td><td>1h 30m</td><td><a href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Map ↗</a></td></tr>
+        <tr><td>02</td><td class="spot-name-col">Kookal Lake &amp; Village</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.2 (289)</td><td>+14 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
+        <tr><td>03</td><td class="spot-name-col">Mannavanur Lake</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (3.8k)</td><td>+22 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
+        <tr><td>04</td><td class="spot-name-col">Mannavanur Viewpoint</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (442)</td><td>+300 m</td><td>25m</td><td><a href="https://maps.app.goo.gl/N2N3AbDQSFkapdRJ7" target="_blank">Map ↗</a></td></tr>
+        <tr><td>05</td><td class="spot-name-col">Sheep Research Center</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (457)</td><td>+3 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Map ↗</a></td></tr>
+        <tr><td>06</td><td class="spot-name-col">Poondi Peak View Point</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (130)</td><td>+16 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Map ↗</a></td></tr>
+        <tr><td>07</td><td class="spot-name-col">Dolphin's Nose Trek</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (6.9k)</td><td>+6 km</td><td>2h 45m</td><td><a href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Map ↗</a></td></tr>
+        <tr><td>08</td><td class="spot-name-col">Vattakanal Falls</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.1 (9.5k)</td><td>+1.5 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Map ↗</a></td></tr>
+        <tr><td>09</td><td class="spot-name-col">Kodaikanal Lake</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.3 (Town)</td><td>+4.5 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
+        <tr><td>10</td><td class="spot-name-col">Coaker's Walk</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (861)</td><td>+1 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
+        <tr><td>11</td><td class="spot-name-col">Pillar Rocks</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (1.2k)</td><td>+7 km</td><td>50m</td><td><a href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Map ↗</a></td></tr>
+        <tr><td>12</td><td class="spot-name-col">Guna Cave</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.2 (19.7k)</td><td>+400 m</td><td>50m</td><td><a href="https://maps.app.goo.gl/UuGm3jwUgsdswjg7A" target="_blank">Map ↗</a></td></tr>
+        <tr><td>13</td><td class="spot-name-col">Pine Forest</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.4 (19.8k)</td><td>+2.5 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Map ↗</a></td></tr>
+        <tr><td>14</td><td class="spot-name-col">Moir Point</td><td><svg class="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.2 (12.1k)</td><td>+1.5 km</td><td>35m</td><td><a href="https://maps.app.goo.gl/8MvJmbNDhV1wM57Q8" target="_blank">Map ↗</a></td></tr>
       </tbody>
     </table>
   </section>
