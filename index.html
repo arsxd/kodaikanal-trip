@@ -3,513 +3,166 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kodaikanal Dispatch</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏔️%3C/text%3E%3C/svg%3E">
+<title>Kodaikanal 48-Hour Dispatch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.293.0/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.294.0/dist/umd/lucide.min.js"></script>
 
 <style>
-/* ================= THEME TOKENS (dark-first, Raycast-inspired) ================= */
+/* ================= THEME TOKENS (Dark-first, Raycast-refined) ================= */
 :root {
-  --bg: #0a0a0b;
-  --bg-soft: #0f0f11;
-  --surface: #171718;
-  --surface-2: #202022;
-  --border: #262628;
-  --border-strong: #363639;
-  --text: #f6f6f5;
-  --text-2: #a2a2a5;
-  --text-dim: #6c6c6f;
-  --accent: #ff6363;
-  --accent-strong: #ff8080;
-  --accent-glow: rgba(255, 99, 99, 0.14);
-  --accent-tint: rgba(255, 99, 99, 0.10);
-  --amber: #ffb300;
-  --amber-tint: rgba(255, 179, 0, 0.12);
-  --blue: #7fb0ff;
-  --blue-tint: rgba(127, 176, 255, 0.12);
-  --line: #262628;
-  --hairline: rgba(255, 255, 255, 0.07);
-  --glass: rgba(23, 23, 24, 0.82);
-  --shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 12px 32px rgba(0,0,0,0.35);
+  --bg: #09090b;
+  --bg-subtle: #111114;
+  --surface: #18181b;
+  --surface-hover: #222226;
+  --surface-active: #27272b;
+  --border: #27272a;
+  --border-subtle: #1f1f23;
+  --border-strong: #3f3f46;
+  --text: #f4f4f5;
+  --text-2: #a1a1aa;
+  --text-dim: #71717a;
+
+  --accent: #ff5252;
+  --accent-hover: #ff6b6b;
+  --accent-tint: rgba(255, 82, 82, 0.12);
+  --accent-glow: rgba(255, 82, 82, 0.25);
+
+  --amber: #f59e0b;
+  --amber-tint: rgba(245, 158, 11, 0.12);
+  --emerald: #10b981;
+  --emerald-tint: rgba(16, 185, 129, 0.12);
+  --blue: #3b82f6;
+  --blue-tint: rgba(59, 130, 246, 0.12);
+  --purple: #a855f7;
+  --purple-tint: rgba(168, 85, 247, 0.12);
+
+  --glass: rgba(18, 18, 20, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 24px var(--accent-glow);
+
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
-  --ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --bg: #f6f5f3;
-    --bg-soft: #f0efec;
+    --bg: #f8f8fa;
+    --bg-subtle: #f0f0f3;
     --surface: #ffffff;
-    --surface-2: #f0efec;
-    --border: #e4e2de;
-    --border-strong: #d2d0cb;
-    --text: #17171a;
-    --text-2: #5b5b5f;
-    --text-dim: #8e8c88;
-    --accent: #e5484d;
-    --accent-strong: #cf3439;
-    --accent-glow: rgba(229, 72, 77, 0.10);
-    --accent-tint: rgba(229, 72, 77, 0.08);
-    --amber: #b47808;
-    --amber-tint: rgba(180, 120, 8, 0.10);
-    --blue: #2f6fd0;
-    --blue-tint: rgba(47, 111, 208, 0.09);
-    --line: #e4e2de;
-    --hairline: rgba(20, 20, 20, 0.07);
-    --glass: rgba(255, 255, 255, 0.85);
-    --shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px rgba(40, 30, 10, 0.08);
+    --surface-hover: #f4f4f6;
+    --surface-active: #ebebee;
+    --border: #e4e4e7;
+    --border-subtle: #eeeeef;
+    --border-strong: #d4d4d8;
+    --text: #09090b;
+    --text-2: #52525b;
+    --text-dim: #71717a;
+
+    --accent: #e11d48;
+    --accent-hover: #be123c;
+    --accent-tint: rgba(225, 29, 72, 0.08);
+    --accent-glow: rgba(225, 29, 72, 0.18);
+
+    --amber: #d97706;
+    --amber-tint: rgba(217, 119, 6, 0.09);
+    --emerald: #059669;
+    --emerald-tint: rgba(5, 150, 105, 0.09);
+    --blue: #2563eb;
+    --blue-tint: rgba(37, 99, 235, 0.09);
+    --purple: #9333ea;
+    --purple-tint: rgba(147, 51, 234, 0.09);
+
+    --glass: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(0, 0, 0, 0.06);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 0 20px var(--accent-glow);
   }
 }
 
 :root[data-theme="light"] {
-  --bg: #f6f5f3;
-  --bg-soft: #f0efec;
+  --bg: #f8f8fa;
+  --bg-subtle: #f0f0f3;
   --surface: #ffffff;
-  --surface-2: #f0efec;
-  --border: #e4e2de;
-  --border-strong: #d2d0cb;
-  --text: #17171a;
-  --text-2: #5b5b5f;
-  --text-dim: #8e8c88;
-  --accent: #e5484d;
-  --accent-strong: #cf3439;
-  --accent-glow: rgba(229, 72, 77, 0.10);
-  --accent-tint: rgba(229, 72, 77, 0.08);
-  --amber: #b47808;
-  --amber-tint: rgba(180, 120, 8, 0.10);
-  --blue: #2f6fd0;
-  --blue-tint: rgba(47, 111, 208, 0.09);
-  --line: #e4e2de;
-  --hairline: rgba(20, 20, 20, 0.07);
-  --glass: rgba(255, 255, 255, 0.85);
-  --shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px rgba(40, 30, 10, 0.08);
+  --surface-hover: #f4f4f6;
+  --surface-active: #ebebee;
+  --border: #e4e4e7;
+  --border-subtle: #eeeeef;
+  --border-strong: #d4d4d8;
+  --text: #09090b;
+  --text-2: #52525b;
+  --text-dim: #71717a;
+
+  --accent: #e11d48;
+  --accent-hover: #be123c;
+  --accent-tint: rgba(225, 29, 72, 0.08);
+  --accent-glow: rgba(225, 29, 72, 0.18);
+
+  --amber: #d97706;
+  --amber-tint: rgba(217, 119, 6, 0.09);
+  --emerald: #059669;
+  --emerald-tint: rgba(5, 150, 105, 0.09);
+  --blue: #2563eb;
+  --blue-tint: rgba(37, 99, 235, 0.09);
+  --purple: #9333ea;
+  --purple-tint: rgba(147, 51, 234, 0.09);
+
+  --glass: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 20px var(--accent-glow);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ================= GLOBAL RESETS & BASE ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--ui);
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 96px;
+  -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 60px;
+  overflow-x: hidden;
+  transition: background var(--transition-normal), color var(--transition-normal);
 }
 
-/* Ambient coral glow behind the whole page */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(720px 360px at 12% -6%, var(--accent-glow), transparent 62%),
-    radial-gradient(560px 300px at 94% 8%, rgba(255, 179, 0, 0.055), transparent 60%);
-}
-
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 18px;
-}
-
-/* ================= HERO (command palette framing) ================= */
-.hero {
-  position: relative;
-  margin-top: 20px;
-  padding: 26px 24px 20px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--glass);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
-  opacity: 0.55;
-}
-.hero-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-.brand {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.brand .cmd {
-  color: var(--accent);
-  font-weight: 700;
-}
-.theme-toggle {
-  appearance: none;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text-2);
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-.theme-toggle:hover {
-  border-color: var(--border-strong);
-  color: var(--text);
-}
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-.hero-title {
-  font-size: 34px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-  text-wrap: balance;
-}
-.hero-sub {
-  font-size: 14px;
-  color: var(--text-2);
-  margin-top: 8px;
-  max-width: 46ch;
-}
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--hairline);
-}
-.stat {
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  border-radius: 10px;
-  padding: 8px 6px 7px;
-  text-align: center;
-}
-.stat-lbl {
-  font-family: var(--mono);
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-.stat-val {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  margin-top: 2px;
-}
-
-/* ================= SEGMENTED NAV (tabs) ================= */
-.nav-bar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  margin: 16px 0 8px;
-  padding: 6px;
-  display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  background: var(--glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-.nav-bar::-webkit-scrollbar { display: none; }
-.nav-link {
-  flex: none;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-2);
-  text-decoration: none;
-  padding: 7px 14px;
-  border-radius: 8px;
-  transition: background 0.15s, color 0.15s;
-  white-space: nowrap;
-}
-.nav-link:hover { color: var(--text); }
-.nav-link.active {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(255, 99, 99, 0.25);
-}
-
-/* ================= SECTION HEADERS ================= */
-.day-title-wrap {
-  margin: 34px 0 20px;
-}
-.day-tag {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: inline-block;
-  padding: 3px 9px;
-  border-radius: 999px;
+::selection {
   background: var(--accent-tint);
-  border: 1px solid var(--border);
-  margin-bottom: 8px;
-}
-.day-title {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-}
-.day-subtitle {
-  font-size: 13.5px;
-  color: var(--text-2);
-  margin-top: 4px;
-}
-
-/* ================= TIMELINE (3-col grid, no overlap) ================= */
-.timeline { display: flex; flex-direction: column; }
-
-.timeline-row {
-  display: grid;
-  grid-template-columns: 64px 26px 1fr;
-  position: relative;
-}
-
-/* Col 1: Time as shortcut chips */
-.time-cell {
-  text-align: right;
-  padding-right: 10px;
-  padding-top: 16px;
-}
-.time-val {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  padding: 2px 6px;
-  display: inline-block;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.4;
-}
-.time-sub {
-  font-family: var(--mono);
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  display: block;
-  margin-top: 3px;
-}
-.time-cell.dep .time-val {
-  background: var(--accent-tint);
-  border-color: var(--accent);
   color: var(--accent);
 }
 
-/* Col 2: Rail & node */
-.line-cell { position: relative; display: flex; justify-content: center; }
-.line-cell::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-  background: var(--line);
-}
-.timeline-row:first-child .line-cell::before { top: 22px; }
-.timeline-row:last-child .line-cell::before { bottom: calc(100% - 26px); }
-.node-dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2.5px solid var(--bg);
-  box-shadow: 0 0 0 1px var(--accent);
-  position: absolute;
-  top: 20px;
-  z-index: 2;
-}
-.node-dot.hollow {
-  background: var(--bg);
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-}
-.node-dot.square {
-  border-radius: 4px;
-  background: var(--blue);
-  border-color: var(--bg);
-  box-shadow: 0 0 0 1px var(--blue);
-}
-.node-dot.amber {
-  background: var(--amber);
-  border-color: var(--bg);
-  box-shadow: 0 0 0 1px var(--amber);
-}
-
-/* Col 3: Glass command card */
-.content-cell { padding: 12px 0 22px 12px; }
-.node-card {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.node-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--hairline) 25%, var(--hairline) 75%, transparent);
-}
-
-.node-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.node-title-group {
-  display: flex;
-  align-items: baseline;
-  gap: 7px;
-  flex: 1;
-  min-width: 0;
-}
-.node-num {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-tint);
-  border-radius: 5px;
-  padding: 1px 5px;
-  flex: none;
-}
-.node-name {
-  font-size: 15.5px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-.node-rating {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--amber);
-  background: var(--amber-tint);
-  border: 1px solid var(--border);
-  padding: 3px 8px;
-  border-radius: 999px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.transit-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  flex-wrap: wrap;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: var(--blue);
-  background: var(--blue-tint);
-  border: 1px solid var(--border);
-  padding: 4px 9px;
-  border-radius: 8px;
-  margin: 10px 0 8px;
-}
-.transit-chip .sep { color: var(--text-dim); }
-
-.node-desc {
-  font-size: 13.5px;
-  color: var(--text-2);
-  line-height: 1.5;
-}
-.node-desc strong { color: var(--text); font-weight: 600; }
-
-.node-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  border-top: 1px solid var(--hairline);
-  padding-top: 10px;
-  margin-top: 12px;
-}
-.node-dwell {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-dim);
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.node-dwell b { color: var(--text-2); font-weight: 600; }
-.node-map-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--blue);
-  text-decoration: none;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 8px;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-.node-map-btn:hover {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
-}
-
-/* ================= ICONS (Lucide) ================= */
+/* ================= ICONS ================= */
 .icon, [data-lucide], .lucide {
   display: inline-block;
   width: 14px;
@@ -519,449 +172,1415 @@ body::before {
   stroke: currentColor;
   fill: none;
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
-.icon-sm, [data-lucide].icon-sm, .lucide.icon-sm {
+.icon-sm, [data-lucide].icon-sm {
   width: 12px;
   height: 12px;
   vertical-align: -1.5px;
 }
-.icon-lg, [data-lucide].icon-lg, .lucide.icon-lg {
-  width: 16px;
-  height: 16px;
+.icon-lg, [data-lucide].icon-lg {
+  width: 18px;
+  height: 18px;
   vertical-align: -3px;
 }
-.icon-star, [data-lucide="star"], .lucide-star {
-  fill: currentColor;
-  stroke: currentColor;
+.icon-star {
+  fill: var(--amber);
+  stroke: var(--amber);
   width: 11px;
   height: 11px;
   vertical-align: -1px;
 }
 
-/* ================= MASTER TABLE ================= */
-.table-section {
-  margin-top: 34px;
+/* ================= LAYOUT CONTAINER ================= */
+.app-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ================= STICKY APP BAR ================= */
+.topbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: var(--glass);
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--transition-normal);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  gap: 12px;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: -0.01em;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-2);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 0;
-  box-shadow: var(--shadow);
-  overflow-x: auto;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
 }
-.table-title {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  padding: 0 18px;
+
+.progress-track {
+  width: 60px;
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--amber));
+  border-radius: var(--radius-full);
+  transition: width var(--transition-smooth);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--ui);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.btn-icon:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  color: #fff;
+  border-color: var(--accent-hover);
+}
+
+/* ================= HERO ================= */
+.hero {
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--border);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.hero-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 12px;
 }
-table.spot-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--mono);
-  font-variant-numeric: tabular-nums;
-  min-width: 520px;
-}
-table.spot-table th {
-  text-align: left;
-  padding: 8px 18px;
-  color: var(--text-dim);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--border-strong);
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
 }
-table.spot-table td {
-  padding: 9px 18px;
-  border-bottom: 1px solid var(--hairline);
+
+.live-weather {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
   color: var(--text-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.live-weather .pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 8px var(--emerald);
+  animation: pulse-ring 2s infinite;
+}
+
+.hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  color: var(--text-2);
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+/* ================= STATS TILES ================= */
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: var(--mono);
+}
+
+.stat-icon {
+  color: var(--text-dim);
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-sub {
+  font-size: 11.5px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+
+/* ================= INTERACTIVE TOOLBAR ================= */
+.control-bar {
+  position: sticky;
+  top: 58px;
+  z-index: 90;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.control-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.segmented-control {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px;
+  border-radius: var(--radius-lg);
+  gap: 2px;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: calc(var(--radius-lg) - 3px);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--ui);
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
   white-space: nowrap;
 }
-table.spot-table tr:last-child td { border-bottom: none; }
-table.spot-table td.spot-name-col {
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+/* ================= DAY CONTAINER & SECTIONS ================= */
+.day-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 130px;
+}
+
+.day-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.day-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.day-heading {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.day-subheading {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  margin-top: 2px;
+}
+
+/* ================= TIMELINE GRID ================= */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 95px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 80px 32px 1fr;
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: 16px;
+  animation: slideUpFade 0.35s ease-out backwards;
+}
+
+.timeline-time {
+  text-align: right;
+  padding-top: 14px;
+}
+
+.time-start {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.time-end {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+
+.timeline-marker {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  z-index: 2;
+}
+
+.marker-node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  transition: all var(--transition-fast);
+}
+
+.marker-node.completed {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-tint);
+}
+
+.marker-node.active-point {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse-accent 2s infinite;
+}
+
+.timeline-content {
+  padding-left: 10px;
+}
+
+/* ================= STOP CARD ================= */
+.stop-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.stop-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stop-card.completed-card {
+  opacity: 0.75;
+  border-color: var(--border-subtle);
+  background: var(--bg-subtle);
+}
+
+.stop-card.completed-card:hover {
+  opacity: 1;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stop-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-hover);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+}
+
+.stop-checkbox:hover {
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+
+.stop-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stop-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.stop-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.stop-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.stop-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.card-transit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-2);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.card-transit .sep {
+  color: var(--text-dim);
+}
+
+.card-desc {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.card-desc strong {
   color: var(--text);
   font-weight: 600;
 }
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.card-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dwell-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.dwell-badge b {
+  color: var(--text);
+}
+
+.alt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  background: var(--blue-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-family: var(--ui);
+  text-decoration: none;
+  color: var(--text-2);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+}
+
+.btn-map:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.btn-expand {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color var(--transition-fast);
+}
+
+.btn-expand:hover {
+  color: var(--text);
+}
+
+/* ================= ACCORDION EXPANSION ================= */
+.card-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-normal);
+  overflow: hidden;
+}
+
+.card-details.open {
+  grid-template-rows: 1fr;
+}
+
+.card-details-inner {
+  min-height: 0;
+  padding-top: 12px;
+  margin-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+  color: var(--text-2);
+  display: grid;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.detail-row strong {
+  color: var(--text);
+  min-width: 90px;
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+/* ================= MASTER TABLE SECTION ================= */
+.section-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+  scroll-margin-top: 130px;
+}
+
+.section-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+table.spot-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  min-width: 600px;
+}
+
+table.spot-table th {
+  text-align: left;
+  padding: 10px 16px;
+  color: var(--text-dim);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-strong);
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition-fast);
+}
+
+table.spot-table th:hover {
+  color: var(--text);
+}
+
+table.spot-table th[data-sort]::after {
+  content: '↕';
+  margin-left: 5px;
+  font-size: 10px;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+table.spot-table th[data-sort]:hover::after {
+  opacity: 1;
+}
+
+table.spot-table th[data-sorted="asc"]::after {
+  content: '▲';
+  color: var(--accent);
+  opacity: 1;
+}
+
+table.spot-table th[data-sorted="desc"]::after {
+  content: '▼';
+  color: var(--accent);
+  opacity: 1;
+}
+
+table.spot-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+table.spot-table tr:hover td {
+  background: var(--surface-hover);
+}
+
+table.spot-table td.col-name {
+  color: var(--text);
+  font-weight: 600;
+}
+
 table.spot-table a {
   color: var(--blue);
   text-decoration: none;
 }
-table.spot-table a:hover { text-decoration: underline; }
 
-/* ================= ROAD NOTES ================= */
-.notes-card {
-  margin-top: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
+table.spot-table a:hover {
+  text-decoration: underline;
 }
-.notes-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--accent), var(--amber));
+
+/* ================= ROAD NOTES & PACKING CHECKLIST ================= */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
 }
-.notes-card-title {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+
+.check-card {
   display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.check-card:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.check-card.checked {
+  opacity: 0.65;
+  text-decoration: line-through;
+}
+
+.check-card-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+.check-card-text strong {
+  color: var(--text);
+}
+
+/* ================= TOAST NOTIFICATION ================= */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
-}
-.notes-card-title .kbd {
-  background: var(--accent-tint);
-  color: var(--accent);
-}
-.notes-ul {
-  font-size: 13.5px;
-  color: var(--text-2);
-  padding-left: 18px;
-  line-height: 1.6;
-}
-.notes-ul li { margin-bottom: 8px; }
-.notes-ul strong { color: var(--text); font-weight: 600; }
-
-/* kbd chip */
-.kbd {
-  font-family: var(--mono);
-  font-size: 11px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-2);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-bottom-width: 2px;
-  border-radius: 6px;
-  padding: 1px 6px;
-  white-space: nowrap;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+/* ================= KEYFRAMES & ANIMATIONS ================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--emerald-tint); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes pulse-accent {
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 82, 82, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); }
 }
 
 /* ================= FOOTER ================= */
 .footer {
-  margin-top: 40px;
+  margin-top: 48px;
   text-align: center;
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 11.5px;
   color: var(--text-dim);
   line-height: 2;
-}
-.footer .blink { color: var(--accent); animation: blink 1.2s step-end infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 520px) {
-  .container { padding: 0 12px; }
-  .hero { padding: 20px 16px 16px; }
-  .hero-title { font-size: 27px; }
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .timeline-row { grid-template-columns: 56px 22px 1fr; }
-  .content-cell { padding: 12px 0 20px 10px; }
-  .node-card { padding: 14px 13px 12px; }
-  .transit-chip { padding: 4px 8px; }
-  .table-section { padding: 14px 0; }
+  letter-spacing: 0.04em;
 }
 
-@media (max-width: 400px) {
-  .timeline-row { grid-template-columns: 48px 18px 1fr; }
-  .time-cell { padding-right: 5px; padding-top: 14px; }
-  .time-val { font-size: 11.5px; padding: 2px 5px; }
-  .time-sub { font-size: 9px; }
-  .content-cell { padding-left: 8px; }
-  .node-card { padding: 13px 12px 11px; }
-  .node-top { gap: 6px; }
-  .node-name { font-size: 14.5px; }
-  .node-rating { padding: 2px 7px; }
-  .transit-chip { font-size: 11px; gap: 5px; padding: 3px 7px; margin: 9px 0 7px; }
-  .node-desc { font-size: 13px; }
-  .node-footer { gap: 6px; }
-  .node-map-btn { padding: 3px 8px; font-size: 11px; }
-  .day-title { font-size: 20px; }
-  .hero-stats { gap: 8px; }
-  .stat { padding: 10px; }
+.footer a {
+  color: var(--text-2);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--accent);
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 768px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .checklist-grid {
+    grid-template-columns: 1fr;
+  }
+  .control-bar-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .segmented-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .tab-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 540px) {
+  .app-container {
+    padding: 0 14px;
+  }
+  .hero-title {
+    font-size: 26px;
+  }
+  .timeline::before {
+    left: 65px;
+  }
+  .timeline-item {
+    grid-template-columns: 55px 22px 1fr;
+  }
+  .timeline-time {
+    padding-top: 12px;
+  }
+  .time-start {
+    font-size: 11px;
+  }
+  .time-end {
+    font-size: 9.5px;
+  }
+  .timeline-marker {
+    padding-top: 14px;
+  }
+  .marker-node {
+    width: 11px;
+    height: 11px;
+  }
+  .stop-card {
+    padding: 12px 13px;
+  }
+  .stop-title {
+    font-size: 14.5px;
+  }
+  .card-desc {
+    font-size: 12.5px;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- STICKY TOPBAR -->
+<div class="topbar-wrapper">
+  <div class="app-container">
+    <header class="topbar">
+      <a href="#" class="brand-group">
+        <div class="brand-badge"><i data-lucide="compass"></i></div>
+        <span>Palakkad ⇄ Kodaikanal</span>
+      </a>
+
+      <!-- Progress pill -->
+      <div class="progress-pill">
+        <span id="visitedCount">0/14</span>
+        <div class="progress-track">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn-icon" id="shareBtn" title="Share or Copy Itinerary"><i data-lucide="share-2" class="icon-sm"></i> Share</button>
+        <button class="btn-icon" id="themeToggle" title="Toggle theme"><i data-lucide="sun-medium" class="icon-sm" id="themeIcon"></i></button>
+      </div>
+    </header>
+  </div>
+</div>
+
+<main class="app-container">
 
   <!-- ================= HERO ================= -->
-  <header class="hero">
-    <div class="hero-top">
-      <span class="brand"><i data-lucide="compass" class="icon icon-sm" style="color:var(--accent)"></i> Palakkad ⇄ Kodaikanal</span>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme"><i data-lucide="sun-medium" class="icon icon-sm"></i> Theme</button>
+  <section class="hero">
+    <div class="hero-meta-row">
+      <div class="eyebrow"><i data-lucide="sparkles" class="icon-sm"></i> 48-Hour Weekend Route</div>
+      <div class="live-weather">
+        <span class="pulse"></span>
+        <span>Kodaikanal: 16°C · Misty</span>
+      </div>
     </div>
-    <div class="hero-eyebrow">Road Trip Dispatch · 48 Hours</div>
+
     <h1 class="hero-title">Kodaikanal 48-Hour Itinerary</h1>
-    <p class="hero-sub">Sat 12 Sep 00:00 depart → Mon 14 Sep 01:45 back at Palakkad Station. 14 stops, 460 km route.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-lbl"><i data-lucide="map-pin" class="icon icon-sm"></i> Spots</div>
-        <div class="stat-val">14</div>
+    <p class="hero-subtitle">Sat 12 Sep 00:00 depart → Mon 14 Sep 01:45 back at Palakkad Station. 14 verified stops, ~460 km route, 14 hairpins.</p>
+
+    <!-- Stat Tiles -->
+    <div class="hero-stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Spots</span>
+          <i data-lucide="map-pin" class="stat-icon icon-sm"></i>
+        </div>
+        <div class="stat-value" id="statSpots">14</div>
+        <div class="stat-sub">2 full days</div>
       </div>
-      <div class="stat">
-        <div class="stat-lbl"><i data-lucide="milestone" class="icon icon-sm"></i> Route Dist</div>
-        <div class="stat-val">≈460 km</div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Total Dist</span>
+          <i data-lucide="milestone" class="stat-icon icon-sm"></i>
+        </div>
+        <div class="stat-value">≈460 km</div>
+        <div class="stat-sub">Full 48-hour route</div>
       </div>
-      <div class="stat">
-        <div class="stat-lbl"><i data-lucide="git-merge" class="icon icon-sm"></i> Hairpins</div>
-        <div class="stat-val">64</div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Hairpins</span>
+          <i data-lucide="git-merge" class="stat-icon icon-sm"></i>
+        </div>
+        <div class="stat-value">14 Bends</div>
+        <div class="stat-sub">Palani Ghat Pass</div>
       </div>
-      <div class="stat">
-        <div class="stat-lbl"><i data-lucide="bed-double" class="icon icon-sm"></i> Night Stay</div>
-        <div class="stat-val">Kodai Town</div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Peak Altitude</span>
+          <i data-lucide="mountain" class="stat-icon icon-sm"></i>
+        </div>
+        <div class="stat-value">2,133 m</div>
+        <div class="stat-sub">Kodaikanal Town</div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <!-- ================= NAV ================= -->
-  <nav class="nav-bar">
-    <a href="#day1" class="nav-link active"><i data-lucide="mountain-snow" class="icon icon-sm"></i> Day 1 · Ridge</a>
-    <a href="#day2" class="nav-link"><i data-lucide="footprints" class="icon icon-sm"></i> Day 2 · Treks</a>
-    <a href="#table" class="nav-link"><i data-lucide="table-2" class="icon icon-sm"></i> All Spots</a>
-    <a href="#notes" class="nav-link"><i data-lucide="shield-alert" class="icon icon-sm"></i> Road Notes</a>
-  </nav>
+  <!-- ================= DYNAMIC CONTROLS ================= -->
+  <div class="control-bar">
+    <div class="control-bar-inner">
+      <!-- Tabs -->
+      <div class="segmented-control" role="tablist">
+        <button class="tab-btn active" data-tab="all"><i data-lucide="layers" class="icon-sm"></i> All Stops</button>
+        <button class="tab-btn" data-tab="day1"><i data-lucide="calendar" class="icon-sm"></i> Day 1</button>
+        <button class="tab-btn" data-tab="day2"><i data-lucide="calendar" class="icon-sm"></i> Day 2</button>
+        <button class="tab-btn" data-tab="table"><i data-lucide="table-2" class="icon-sm"></i> Master Table</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- ================= DAY 1 ================= -->
-  <section id="day1">
-    <div class="day-title-wrap">
-      <div class="day-tag"><i data-lucide="calendar" class="icon icon-sm"></i> Day 1 · Sat 12 Sep</div>
-      <h2 class="day-title">Western Ridge &amp; Scenic Valleys</h2>
-      <div class="day-subtitle">Palakkad → Poombarai → Kookal → Mannavanur → Poondi → Kodai Town</div>
+  <!-- ================= DAY 1 TIMELINE ================= -->
+  <section class="day-section" id="day1-section">
+    <div class="day-header">
+      <div>
+        <div class="day-tag"><i data-lucide="calendar" class="icon-sm"></i> Day 1 · Sat 12 Sep</div>
+        <h2 class="day-heading">Western Ridge &amp; Scenic Valleys</h2>
+        <p class="day-subheading">Palakkad → Poombarai → Kookal → Mannavanur → Poondi → Kodai Town</p>
+      </div>
     </div>
 
-    <div class="timeline">
+    <div class="timeline" id="timelineDay1">
 
       <!-- Departure -->
-      <div class="timeline-row">
-        <div class="time-cell dep">
-          <div class="time-val">00:00</div>
-          <span class="time-sub">Depart</span>
+      <div class="timeline-item" data-category="transit" data-name="palakkad palani ghat depart">
+        <div class="timeline-time">
+          <div class="time-start">00:00</div>
+          <div class="time-end">03:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot hollow"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-name">Palakkad → Palani Ghat Base</span>
+        <div class="timeline-content">
+          <div class="stop-card">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <span class="stop-number">DEPART</span>
+                <span class="stop-title">Palakkad → Palani Ghat Base</span>
               </div>
             </div>
-            <div class="transit-chip">
-              <span>≈165 km</span><span class="sep">·</span>
-              <span>4h 45m drive</span><span class="sep">·</span>
-              <span>via Pollachi–Palani</span>
+            <div class="card-transit">
+              <i data-lucide="navigation" class="icon-sm"></i>
+              <span>≈110 km</span><span class="sep">·</span>
+              <span>3h 00m night drive via Pollachi–Palani</span>
             </div>
-            <p class="node-desc">
-              <strong>04:45–05:30:</strong> Quick washroom &amp; tea break. <strong>100% full fuel top-up</strong> at Palani base before ascending the ghats — zero fuel bunks on the ridge.
+            <p class="card-desc">
+              <strong>03:00–03:45:</strong> Washroom &amp; tea break. <strong>100% full fuel top-up</strong> at Palani base before ascending the ghats — zero fuel bunks on the western ridge.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><span class="kbd">NIGHT</span>&nbsp; night drive</span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Route  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Break <b>45m</b></span>
+                <span class="alt-badge">≈300 m (Palani Base)</span>
+              </div>
+              <a class="btn-map" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Route <i data-lucide="external-link" class="icon-sm"></i></a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stop 1: Poombarai -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">06:15</div>
-          <span class="time-sub">07:45</span>
+      <!-- Stop 01: Poombarai -->
+      <div class="timeline-item" data-category="viewpoint" data-name="poombarai village viewpoint">
+        <div class="timeline-time">
+          <div class="time-start">06:15</div>
+          <div class="time-end">07:45</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">01</span>
-                <span class="node-name">Poombarai Village &amp; Viewpoint</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="1">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">01</span>
+                <span class="stop-title">Poombarai Village &amp; Viewpoint</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (5.3k)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (5.3k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +18 km from Kodai Jnc</span><span class="sep">·</span>
-              <span>45 min climb</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+18 km from Kodai Jnc</span><span class="sep">·</span>
+              <span>2h 30m via Palani Ghat</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               Stepped terraced garlic fields in early morning light. <strong>Breakfast (07:00–07:45):</strong> hot poori, dosas &amp; fresh mountain tea at local village stalls.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 30m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 30m</b></span>
+                <span class="alt-badge">1,920 m</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn-expand" title="Toggle insider tips"><i data-lucide="chevron-down" class="icon-sm"></i></button>
+                <a class="btn-map" href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card-details-inner">
+                <div class="detail-row"><strong>Photography:</strong> Best panorama from the viewpoint hairpin just before entering the village.</div>
+                <div class="detail-row"><strong>Parking:</strong> Roadside shoulder parking available near the viewpoint deck.</div>
+                <div class="detail-row"><strong>Specialty:</strong> Hill garlic (Kodaikanal Malai Poondu with GI tag) sold directly by local farmers.</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stop 2: Kookal -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">08:30</div>
-          <span class="time-sub">10:45</span>
+      <!-- Stop 02: Kookal -->
+      <div class="timeline-item" data-category="lake" data-name="kookal village lake shola">
+        <div class="timeline-time">
+          <div class="time-start">08:30</div>
+          <div class="time-end">10:45</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">02</span>
-                <span class="node-name">Kookal Village &amp; Kookal Lake</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="2">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">02</span>
+                <span class="stop-title">Kookal Village &amp; Kookal Lake</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.2 (289)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.2 (289)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +14 km from Poombarai</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+12 km from Poombarai</span><span class="sep">·</span>
               <span>40 min drive</span>
             </div>
-            <p class="node-desc">
-              Untouched Shola forest lake &amp; traditional farming hamlet. Very serene morning walk along the lake banks with a minimal tourist footprint.
+            <p class="card-desc">
+              Untouched Shola forest lake &amp; traditional farming hamlet. Very serene morning walk along the lake banks with minimal tourist footprint.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>2h 15m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>2h 15m</b></span>
+                <span class="alt-badge">1,890 m</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn-expand" title="Toggle insider tips"><i data-lucide="chevron-down" class="icon-sm"></i></button>
+                <a class="btn-map" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card-details-inner">
+                <div class="detail-row"><strong>Highlights:</strong> Reflections of pine trees on water, bird watching (Nilgiri flycatcher).</div>
+                <div class="detail-row"><strong>Road State:</strong> Narrow single-lane tarmac; drive slowly on blind turns.</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stop 3: Mannavanur -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">11:45</div>
-          <span class="time-sub">14:00</span>
+      <!-- Stop 03: Mannavanur Lake -->
+      <div class="timeline-item" data-category="lake" data-name="mannavanur lake grasslands coracle meadows">
+        <div class="timeline-time">
+          <div class="time-start">11:45</div>
+          <div class="time-end">14:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">03</span>
-                <span class="node-name">Mannavanur Lake &amp; Grasslands</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="3">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">03</span>
+                <span class="stop-title">Mannavanur Lake &amp; Grasslands</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (3.8k)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (3.8k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +22 km via Poombarai jnc</span><span class="sep">·</span>
-              <span>55 min drive</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+5 km from Kookal</span><span class="sep">·</span>
+              <span>15 min drive</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               Wide rolling meadows &amp; pine fringes. Optional coracle ride. <strong>Lunch (12:45–14:00):</strong> village-style meals at local eateries near the lake gate.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>2h 15m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>2h 15m</b></span>
+                <span class="alt-badge">1,940 m</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn-expand" title="Toggle insider tips"><i data-lucide="chevron-down" class="icon-sm"></i></button>
+                <a class="btn-map" href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card-details-inner">
+                <div class="detail-row"><strong>Activities:</strong> Forest department coracle rides, horse riding, expansive picnic lawns.</div>
+                <div class="detail-row"><strong>Entry Fee:</strong> ₹50 per person + ₹20 camera fee (cash preferred).</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stops 4 & 5: Sheep Center -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">14:00</div>
-          <span class="time-sub">15:30</span>
+      <!-- Stop 04 & 05: Sheep Center & Viewpoint -->
+      <div class="timeline-item" data-category="viewpoint" data-name="sheep research center rabbit farm mannavanur viewpoint">
+        <div class="timeline-time">
+          <div class="time-start">14:00</div>
+          <div class="time-end">15:30</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">04 · 05</span>
-                <span class="node-name">Sheep Research Center &amp; Viewpoints</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="4" data-count="2">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">04 · 05</span>
+                <span class="stop-title">Sheep Research Center &amp; Viewpoints</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (457)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (457)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +3 km from Lake</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+3 km from Lake</span><span class="sep">·</span>
               <span>8 min drive / walk</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               ICAR research center with Bharat Merino sheep &amp; Angora rabbits, plus elevated lake-viewpoint knolls. Relaxed post-lunch stroll.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 30m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 30m</b></span>
+                <span class="alt-badge">1,960 m</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stop 6: Poondi -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">16:15</div>
-          <span class="time-sub">18:00</span>
+      <!-- Stop 06: Poondi -->
+      <div class="timeline-item" data-category="viewpoint" data-name="poondi village peak viewpoint sunset">
+        <div class="timeline-time">
+          <div class="time-start">16:15</div>
+          <div class="time-end">18:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">06</span>
-                <span class="node-name">Poondi Village &amp; Peak Viewpoint</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="6">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">06</span>
+                <span class="stop-title">Poondi Village &amp; Peak Viewpoint</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (130)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.6 (130)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +16 km from Mannavanur</span><span class="sep">·</span>
-              <span>40 min drive</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+7 km past Mannavanur</span><span class="sep">·</span>
+              <span>25 min drive</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               Remote 2,210 m ridge peak overlooking untouched Kerala border forests. Perfect spot for <strong>sunset (17:30–18:00)</strong> and evening mist.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 45m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 45m</b></span>
+                <span class="alt-badge">2,210 m (Ridge Peak)</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Night Stay -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">19:30</div>
-          <span class="time-sub">Onwards</span>
+      <div class="timeline-item" data-category="town" data-name="kodaikanal town hotel night stay rest dinner">
+        <div class="timeline-time">
+          <div class="time-start">19:30</div>
+          <div class="time-end">05:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot square"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-name">Kodaikanal Town Hotel &amp; Rest</span>
+        <div class="timeline-content">
+          <div class="stop-card">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <span class="stop-number">NIGHT</span>
+                <span class="stop-title">Kodaikanal Town Hotel &amp; Rest</span>
               </div>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="bed-double" class="icon icon-sm"></i> +35 km from Poondi</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="bed-double" class="icon-sm"></i>
+              <span>+40 km from Poondi</span><span class="sep">·</span>
               <span>1h 15m return drive</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               Check in, hot water, relaxed dinner, early sleep. Positions you just 15 min from Vattakanal for the <strong>05:45</strong> sunrise trek.
             </p>
           </div>
@@ -971,230 +1590,242 @@ table.spot-table a:hover { text-decoration: underline; }
     </div>
   </section>
 
-  <!-- ================= DAY 2 ================= -->
-  <section id="day2">
-    <div class="day-title-wrap">
-      <div class="day-tag"><i data-lucide="calendar" class="icon icon-sm"></i> Day 2 · Sun 13 Sep</div>
-      <h2 class="day-title">Sunrise Trek &amp; 12-Mile Corridor</h2>
-      <div class="day-subtitle">Dolphin's Nose → Vattakanal → Lake &amp; Town → Pillar Rocks &amp; Forest → Return</div>
+  <!-- ================= DAY 2 TIMELINE ================= -->
+  <section class="day-section" id="day2-section">
+    <div class="day-header">
+      <div>
+        <div class="day-tag"><i data-lucide="calendar" class="icon-sm"></i> Day 2 · Sun 13 Sep</div>
+        <h2 class="day-heading">Sunrise Trek &amp; 12-Mile Corridor</h2>
+        <p class="day-subheading">Dolphin's Nose → Vattakanal → Lake &amp; Town → Pillar Rocks &amp; Forest → Return</p>
+      </div>
     </div>
 
-    <div class="timeline">
+    <div class="timeline" id="timelineDay2">
 
-      <!-- Stop 7: Dolphin's Nose -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">05:45</div>
-          <span class="time-sub">08:30</span>
+      <!-- Stop 07: Dolphin's Nose -->
+      <div class="timeline-item" data-category="trek" data-name="dolphins nose echo rock trek sunrise">
+        <div class="timeline-time">
+          <div class="time-start">05:45</div>
+          <div class="time-end">08:30</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">07</span>
-                <span class="node-name">Dolphin's Nose &amp; Echo Rock Trek</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="7">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">07</span>
+                <span class="stop-title">Dolphin's Nose &amp; Echo Rock Trek</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (6.9k)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (6.9k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +6 km from Town (05:15 depart)</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+8 km from Town (05:15 depart)</span><span class="sep">·</span>
               <span>3 km round-trip hike</span>
             </div>
-            <p class="node-desc">
+            <p class="card-desc">
               <strong>Early start beats midday heat &amp; the parking jam.</strong> Spectacular 2,000 m cliff-drop views before heavy fog rolls in.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>2h 45m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>2h 45m</b></span>
+                <span class="alt-badge">2,000 m (Cliff)</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stop 8: Vattakanal -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">08:45</div>
-          <span class="time-sub">10:30</span>
+      <!-- Stop 08: Vattakanal Falls -->
+      <div class="timeline-item" data-category="trek" data-name="vattakanal falls liril cafe altaf brunch">
+        <div class="timeline-time">
+          <div class="time-start">08:45</div>
+          <div class="time-end">10:30</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">08</span>
-                <span class="node-name">Vattakanal Falls &amp; Brunch</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="8">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">08</span>
+                <span class="stop-title">Vattakanal Falls &amp; Brunch</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.1 (9.5k)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.1 (9.5k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +1.5 km back to trailhead</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+1.5 km back from Trek trailhead</span><span class="sep">·</span>
               <span>10 min drive</span>
             </div>
-            <p class="node-desc">
-              Cascading forest stream &amp; bridge. <strong>Brunch (09:30–10:30):</strong> fresh coffee, sandwiches &amp; shakshuka at Altaf's Cafe / Vattakanal village.
+            <p class="card-desc">
+              Scenic cascade through dense eucalyptus forest. <strong>Brunch (09:15–10:30):</strong> Altaf's Cafe / Vattakanal village cafes (Middle Eastern platters, hot coffee, shakshuka).
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 45m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 45m</b></span>
+                <span class="alt-badge">1,900 m</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stops 9 & 10: Lake & Coaker's -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">11:00</div>
-          <span class="time-sub">13:00</span>
+      <!-- Stop 09 & 10: Lake & Coaker's Walk -->
+      <div class="timeline-item" data-category="town" data-name="kodaikanal lake coakers walk town cycle">
+        <div class="timeline-time">
+          <div class="time-start">11:00</div>
+          <div class="time-end">13:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">09 · 10</span>
-                <span class="node-name">Kodaikanal Lake &amp; Coaker's Walk</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="9" data-count="2">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">09 · 10</span>
+                <span class="stop-title">Kodaikanal Lake &amp; Coaker's Walk</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (Coaker's)</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (Heritage)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +4.5 km into Town</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+4.5 km from Vattakanal</span><span class="sep">·</span>
               <span>15 min drive</span>
             </div>
-            <p class="node-desc">
-              Stroll the Star Lake perimeter, then Coaker's Walk paved valley promenade. <strong>Lunch / snack:</strong> light lunch in town before the corridor.
+            <p class="card-desc">
+              Star-shaped lake perimeter stroll or cycling (5 km path) followed by 1 km paved cliff-edge promenade with telescope house views.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>2 hours</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>2h 00m</b></span>
+                <span class="alt-badge">2,133 m</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stops 11 & 12: Pillar Rocks & Guna -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">13:30</div>
-          <span class="time-sub">15:15</span>
+      <!-- Stop 11 & 12: Pillar Rocks & Guna Cave -->
+      <div class="timeline-item" data-category="viewpoint" data-name="pillar rocks guna caves 12 mile corridor">
+        <div class="timeline-time">
+          <div class="time-start">14:15</div>
+          <div class="time-end">16:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">11 · 12</span>
-                <span class="node-name">Pillar Rocks &amp; Guna Cave</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="11" data-count="2">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">11 · 12</span>
+                <span class="stop-title">Pillar Rocks &amp; Guna Caves</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.4 / 4.2</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (1.2k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +7 km from Town</span><span class="sep">·</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+7 km along 12-Mile Road</span><span class="sep">·</span>
               <span>20 min drive</span>
             </div>
-            <p class="node-desc">
-              Three 122 m granite pillars rising above the cloud canopy + ancient tree-root ravines at Devil's Kitchen. Adjacent spots, 400 m apart.
+            <p class="card-desc">
+              Three giant 122 m vertical granite boulders standing in mist. Neighboring Guna Caves feature intricate, mossy Shola tree roots.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 45m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 45m</b></span>
+                <span class="alt-badge">2,150 m</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stops 13 & 14: Pine Forest & Moir -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">15:30</div>
-          <span class="time-sub">17:00</span>
+      <!-- Stop 13 & 14: Pine Forest & Moir Point -->
+      <div class="timeline-item" data-category="viewpoint" data-name="pine forest moir point sunset descent">
+        <div class="timeline-time">
+          <div class="time-start">16:15</div>
+          <div class="time-end">18:00</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-num">13 · 14</span>
-                <span class="node-name">Pine Forest &amp; Moir Point</span>
+        <div class="timeline-content">
+          <div class="stop-card" data-spot-id="13" data-count="2">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <input type="checkbox" class="stop-checkbox" aria-label="Mark Visited">
+                <span class="stop-number">13 · 14</span>
+                <span class="stop-title">Pine Forest &amp; Moir Point</span>
               </div>
-              <span class="node-rating"><i data-lucide="star" class="icon-star"></i> 4.4 / 4.2</span>
+              <span class="stop-rating"><i data-lucide="star" class="icon-star"></i> 4.4 (19.8k)</span>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> +3 km along 12-Mile road</span><span class="sep">·</span>
-              <span>8 min drive</span>
+            <div class="card-transit">
+              <i data-lucide="car" class="icon-sm"></i>
+              <span>+2.5 km along loop</span><span class="sep">·</span>
+              <span>10 min drive</span>
             </div>
-            <p class="node-desc">
-              Walk through dense towering pine woods, finishing at Moir Point valley lookout — the gateway to Berijam forest.
+            <p class="card-desc">
+              Sloping pine plantation with golden afternoon light beams. Final panoramic view of the valley before beginning the descent.
             </p>
-            <div class="node-footer">
-              <span class="node-dwell"><i data-lucide="clock" class="icon icon-sm"></i> Dwell <b>1h 30m</b></span>
-              <a class="node-map-btn" href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Open Map  <i data-lucide="external-link" class="icon icon-sm"></i></a>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="dwell-badge"><i data-lucide="clock" class="icon-sm"></i> Dwell <b>1h 45m</b></span>
+                <span class="alt-badge">2,180 m</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn-map" href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Map <i data-lucide="external-link" class="icon-sm"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Pack & Dinner -->
-      <div class="timeline-row">
-        <div class="time-cell">
-          <div class="time-val">17:30</div>
-          <span class="time-sub">20:00</span>
+      <!-- Return Leg -->
+      <div class="timeline-item" data-category="transit" data-name="palakkad return palani ghat 14 hairpins">
+        <div class="timeline-time">
+          <div class="time-start">20:00</div>
+          <div class="time-end">01:45</div>
         </div>
-        <div class="line-cell">
-          <div class="node-dot amber"></div>
+        <div class="timeline-marker">
+          <div class="marker-node"></div>
         </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-name">Freshen Up, Pack &amp; Early Dinner</span>
+        <div class="timeline-content">
+          <div class="stop-card">
+            <div class="card-top">
+              <div class="card-title-wrap">
+                <span class="stop-number">RETURN</span>
+                <span class="stop-title">Kodai Town → Palakkad Station</span>
               </div>
             </div>
-            <div class="transit-chip">
-              <span><i data-lucide="bed-double" class="icon icon-sm"></i> Town Base</span><span class="sep">·</span>
-              <span>2.5 hours relaxed buffer</span>
+            <div class="card-transit">
+              <i data-lucide="navigation" class="icon-sm"></i>
+              <span>≈175 km</span><span class="sep">·</span>
+              <span>5h 45m comfortable night drive</span>
             </div>
-            <p class="node-desc">
-              Return to the hotel, hot showers, pack bags, buy homemade chocolates &amp; spices, and have early dinner in town. Zero rush.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Return -->
-      <div class="timeline-row">
-        <div class="time-cell dep">
-          <div class="time-val">20:00</div>
-          <span class="time-sub">Depart</span>
-        </div>
-        <div class="line-cell">
-          <div class="node-dot hollow"></div>
-        </div>
-        <div class="content-cell">
-          <div class="node-card">
-            <div class="node-top">
-              <div class="node-title-group">
-                <span class="node-name">Kodaikanal → Palakkad Railway Station</span>
-              </div>
-            </div>
-            <div class="transit-chip">
-              <span><i data-lucide="car" class="icon icon-sm"></i> ≈170 km</span><span class="sep">·</span>
-              <span>~4.5 h drive + 1h 15m buffer</span>
-            </div>
-            <p class="node-desc">
-              Safe night descent via Palani–Pollachi. Expected arrival between <strong>00:30 and 01:45</strong> — comfortably before the train.
+            <p class="card-desc">
+              Dinner in Kodai town (18:30–19:45). <strong>20:00 sharp depart</strong> to descend 14 hairpins calmly using engine braking. Arrive Palakkad 01:45 with ample slack.
             </p>
           </div>
         </div>
@@ -1203,87 +1834,394 @@ table.spot-table a:hover { text-decoration: underline; }
     </div>
   </section>
 
-  <!-- ================= MASTER TABLE ================= -->
-  <section id="table" class="table-section">
-    <h2 class="table-title">All 14 Spots — Master Table</h2>
-    <table class="spot-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th><i data-lucide="map-pin" class="icon icon-sm"></i> Spot</th>
-          <th><i data-lucide="star" class="icon icon-sm"></i> Rating</th>
-          <th><i data-lucide="milestone" class="icon icon-sm"></i> Delta Leg</th>
-          <th><i data-lucide="clock" class="icon icon-sm"></i> Dwell</th>
-          <th><i data-lucide="external-link" class="icon icon-sm"></i> Map</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>01</td><td class="spot-name-col">Poombarai Viewpoint</td><td><i data-lucide="star" class="icon-star"></i> 4.6 (5.3k)</td><td>+18 km</td><td>1h 30m</td><td><a href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>02</td><td class="spot-name-col">Kookal Lake &amp; Village</td><td><i data-lucide="star" class="icon-star"></i> 4.2 (289)</td><td>+14 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>03</td><td class="spot-name-col">Mannavanur Lake</td><td><i data-lucide="star" class="icon-star"></i> 4.6 (3.8k)</td><td>+22 km</td><td>2h 15m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>04</td><td class="spot-name-col">Mannavanur Viewpoint</td><td><i data-lucide="star" class="icon-star"></i> 4.6 (442)</td><td>+300 m</td><td>25m</td><td><a href="https://maps.app.goo.gl/N2N3AbDQSFkapdRJ7" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>05</td><td class="spot-name-col">Sheep Research Center</td><td><i data-lucide="star" class="icon-star"></i> 4.4 (457)</td><td>+3 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>06</td><td class="spot-name-col">Poondi Peak View Point</td><td><i data-lucide="star" class="icon-star"></i> 4.6 (130)</td><td>+16 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>07</td><td class="spot-name-col">Dolphin's Nose Trek</td><td><i data-lucide="star" class="icon-star"></i> 4.4 (6.9k)</td><td>+6 km</td><td>2h 45m</td><td><a href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>08</td><td class="spot-name-col">Vattakanal Falls</td><td><i data-lucide="star" class="icon-star"></i> 4.1 (9.5k)</td><td>+1.5 km</td><td>1h 45m</td><td><a href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>09</td><td class="spot-name-col">Kodaikanal Lake</td><td><i data-lucide="star" class="icon-star"></i> 4.3 (Town)</td><td>+4.5 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>10</td><td class="spot-name-col">Coaker's Walk</td><td><i data-lucide="star" class="icon-star"></i> 4.4 (861)</td><td>+1 km</td><td>1h</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>11</td><td class="spot-name-col">Pillar Rocks</td><td><i data-lucide="star" class="icon-star"></i> 4.4 (1.2k)</td><td>+7 km</td><td>50m</td><td><a href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>12</td><td class="spot-name-col">Guna Cave</td><td><i data-lucide="star" class="icon-star"></i> 4.2 (19.7k)</td><td>+400 m</td><td>50m</td><td><a href="https://maps.app.goo.gl/UuGm3jwUgsdswjg7A" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>13</td><td class="spot-name-col">Pine Forest</td><td><i data-lucide="star" class="icon-star"></i> 4.4 (19.8k)</td><td>+2.5 km</td><td>45m</td><td><a href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-        <tr><td>14</td><td class="spot-name-col">Moir Point</td><td><i data-lucide="star" class="icon-star"></i> 4.2 (12.1k)</td><td>+1.5 km</td><td>35m</td><td><a href="https://maps.app.goo.gl/8MvJmbNDhV1wM57Q8" target="_blank">Map <i data-lucide="arrow-up-right" class="icon icon-sm"></i></a></td></tr>
-      </tbody>
-    </table>
+  <!-- ================= MASTER TABLE PANEL ================= -->
+  <section class="section-panel" id="table-section">
+    <div class="section-panel-header">
+      <h3 class="panel-title"><i data-lucide="table-2" class="icon"></i> All 14 Spots Master Grid</h3>
+      <span class="stat-label">Click headers to sort</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="spot-table" id="masterTable">
+        <thead>
+          <tr>
+            <th data-sort="num">#</th>
+            <th data-sort="name"><i data-lucide="map-pin" class="icon-sm"></i> Spot</th>
+            <th data-sort="rating"><i data-lucide="star" class="icon-sm"></i> Rating</th>
+            <th data-sort="leg"><i data-lucide="milestone" class="icon-sm"></i> Delta Leg</th>
+            <th data-sort="dwell"><i data-lucide="clock" class="icon-sm"></i> Dwell</th>
+            <th data-sort="alt"><i data-lucide="mountain" class="icon-sm"></i> Altitude</th>
+            <th>Map</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>01</td><td class="col-name">Poombarai Viewpoint</td><td>4.6 (5.3k)</td><td>+18 km</td><td>1h 30m</td><td>1,920 m</td><td><a href="https://maps.app.goo.gl/U6miTCvdA62BkwMQA" target="_blank">Map ↗</a></td></tr>
+          <tr><td>02</td><td class="col-name">Kookal Lake &amp; Village</td><td>4.2 (289)</td><td>+12 km</td><td>2h 15m</td><td>1,890 m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
+          <tr><td>03</td><td class="col-name">Mannavanur Lake</td><td>4.6 (3.8k)</td><td>+5 km</td><td>2h 15m</td><td>1,940 m</td><td><a href="https://maps.app.goo.gl/L1qTg4rgkvjjpopd7" target="_blank">Map ↗</a></td></tr>
+          <tr><td>04</td><td class="col-name">Mannavanur Viewpoint</td><td>4.6 (442)</td><td>+300 m</td><td>25m</td><td>1,960 m</td><td><a href="https://maps.app.goo.gl/N2N3AbDQSFkapdRJ7" target="_blank">Map ↗</a></td></tr>
+          <tr><td>05</td><td class="col-name">Sheep Research Center</td><td>4.4 (457)</td><td>+3 km</td><td>45m</td><td>1,960 m</td><td><a href="https://maps.app.goo.gl/Fqo78UnBLCqayaJM8" target="_blank">Map ↗</a></td></tr>
+          <tr><td>06</td><td class="col-name">Poondi Peak View Point</td><td>4.6 (130)</td><td>+7 km</td><td>1h 45m</td><td>2,210 m</td><td><a href="https://maps.app.goo.gl/GdY6LdzvikxqQMht9" target="_blank">Map ↗</a></td></tr>
+          <tr><td>07</td><td class="col-name">Dolphin's Nose Trek</td><td>4.4 (6.9k)</td><td>+8 km</td><td>2h 45m</td><td>2,000 m</td><td><a href="https://maps.app.goo.gl/6LL9Sk3Zr1qjMbcNA" target="_blank">Map ↗</a></td></tr>
+          <tr><td>08</td><td class="col-name">Vattakanal Falls</td><td>4.1 (9.5k)</td><td>+1.5 km</td><td>1h 45m</td><td>1,900 m</td><td><a href="https://maps.app.goo.gl/B5cGegmkUN2bAf2b8" target="_blank">Map ↗</a></td></tr>
+          <tr><td>09</td><td class="col-name">Kodaikanal Lake</td><td>4.3 (Town)</td><td>+4.5 km</td><td>1h 00m</td><td>2,133 m</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
+          <tr><td>10</td><td class="col-name">Coaker's Walk</td><td>4.4 (861)</td><td>+1 km</td><td>1h 00m</td><td>2,133 m</td><td><a href="https://maps.app.goo.gl/FCJYYLpocf8mQXin8" target="_blank">Map ↗</a></td></tr>
+          <tr><td>11</td><td class="col-name">Pillar Rocks</td><td>4.4 (1.2k)</td><td>+7 km</td><td>50m</td><td>2,150 m</td><td><a href="https://maps.app.goo.gl/dVH1vpZqPZodDkGw6" target="_blank">Map ↗</a></td></tr>
+          <tr><td>12</td><td class="col-name">Guna Cave</td><td>4.2 (19.7k)</td><td>+400 m</td><td>50m</td><td>2,150 m</td><td><a href="https://maps.app.goo.gl/UuGm3jwUgsdswjg7A" target="_blank">Map ↗</a></td></tr>
+          <tr><td>13</td><td class="col-name">Pine Forest</td><td>4.4 (19.8k)</td><td>+2.5 km</td><td>45m</td><td>2,180 m</td><td><a href="https://maps.app.goo.gl/hHLKNwL5q8jq8D4v6" target="_blank">Map ↗</a></td></tr>
+          <tr><td>14</td><td class="col-name">Moir Point</td><td>4.2 (12.1k)</td><td>+1.5 km</td><td>35m</td><td>2,180 m</td><td><a href="https://maps.app.goo.gl/8MvJmbNDhV1wM57Q8" target="_blank">Map ↗</a></td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
-  <!-- ================= ROAD NOTES ================= -->
-  <section id="notes" class="notes-card">
-    <h3 class="notes-card-title"><i data-lucide="shield-alert" class="icon" style="color:var(--accent)"></i> Route Alerts &amp; Driver Checklist</h3>
-    <ul class="notes-ul">
-      <li><i data-lucide="fuel" class="icon icon-sm" style="color:var(--accent);margin-right:4px"></i> <strong>Fuel:</strong> Full tank at Palani ghat foot. <strong>Zero petrol pumps</strong> on the entire western ridge (Poombarai / Kookal / Mannavanur / Poondi).</li>
-      <li><i data-lucide="wifi-off" class="icon icon-sm" style="color:var(--amber);margin-right:4px"></i> <strong>Offline Maps:</strong> Mobile signal drops past Poombarai. Pre-download the Google Maps offline area for Kodaikanal.</li>
-      <li><i data-lucide="alarm-clock" class="icon icon-sm" style="color:var(--blue);margin-right:4px"></i> <strong>Dolphin's Nose Timing:</strong> The <strong>05:45</strong> start is crucial — parking fits &lt;10 cars and the trail beats morning heat.</li>
-      <li><i data-lucide="triangle-alert" class="icon icon-sm" style="color:var(--amber);margin-right:4px"></i> <strong>Descent:</strong> Use 2nd/3rd gear engine braking on the 64 hairpins down to Palani.</li>
-      <li><i data-lucide="timer" class="icon icon-sm" style="color:var(--accent);margin-right:4px"></i> <strong>Buffer:</strong> Leaving Kodai town at <strong>20:00</strong> gives 5h 45m of slack before a <strong>01:45</strong> arrival at Palakkad Station.</li>
-    </ul>
+  <!-- ================= DRIVER ALERTS & CHECKLIST ================= -->
+  <section class="section-panel" id="notes-section">
+    <div class="section-panel-header">
+      <h3 class="panel-title"><i data-lucide="shield-alert" class="icon" style="color:var(--accent)"></i> Driver Alerts &amp; Packing Checklist</h3>
+      <span class="stat-label">Interactive Checklist</span>
+    </div>
+
+    <div class="checklist-grid" id="checklistGrid">
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Fuel Full Tank:</strong> Fill 100% at Palani ghat base. Zero bunks on the western ridge.</div>
+      </div>
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Offline Maps:</strong> Download Kodaikanal region on Google Maps before ascending.</div>
+      </div>
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Early Trek Start:</strong> Reach Dolphin's Nose parking at 05:45 AM (&lt;10 slots).</div>
+      </div>
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Ghat Descent:</strong> Use 2nd/3rd gear engine braking on the 14 Palani hairpins.</div>
+      </div>
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Warm Layers:</strong> Poondi and Vattakanal drop to 12°C in early mornings &amp; nights.</div>
+      </div>
+      <div class="check-card">
+        <input type="checkbox" class="stop-checkbox">
+        <div class="check-card-text"><strong>Cash on Hand:</strong> Keep ₹1,500 cash for entry fees, toll gates, and local stalls.</div>
+      </div>
+    </div>
   </section>
 
   <!-- ================= FOOTER ================= -->
-  <div class="footer">
-    <span class="blink">▌</span> end of dispatch — drive safe · Palakkad ⇄ Kodaikanal
-  </div>
+  <footer class="footer">
+    <div>48-Hour Weekend Dispatch · Palakkad ⇄ Kodaikanal · <a href="https://github.com/arsxd/kodaikanal-trip" target="_blank">GitHub Repository</a></div>
+    <div>Press <kbd class="stat-label">1</kbd> Day 1 · <kbd class="stat-label">2</kbd> Day 2 · <kbd class="stat-label">T</kbd> Table · <kbd class="stat-label">D</kbd> Dark/Light</div>
+  </footer>
 
-</div>
+</main>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-// Segmented nav active state
-const navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(link => {
-  link.addEventListener('click', function() {
-    navLinks.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
+// ================= STATE & PERSISTENCE =================
+const STATE = {
+  visited: JSON.parse(localStorage.getItem('kodai_visited') || '[]'),
+  checklist: JSON.parse(localStorage.getItem('kodai_checklist') || '[]'),
+  theme: localStorage.getItem('kodai_theme') || 'dark',
+  activeTab: 'all'
+};
+
+// ================= TOAST NOTIFICATIONS =================
+function showToast(msg, icon = 'check-circle') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<i data-lucide="${icon}" class="icon-sm" style="color:var(--accent)"></i> <span>${msg}</span>`;
+  container.appendChild(toast);
+  if (window.lucide) lucide.createIcons();
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    toast.style.transition = 'all 0.25s ease-out';
+    setTimeout(() => toast.remove(), 250);
+  }, 2500);
+}
+
+// ================= THEME TOGGLE =================
+const themeToggle = document.getElementById('themeToggle');
+
+// Swap the toggle's icon element and re-render it via Lucide.
+// lucide.createIcons() replaces each <i data-lucide> with an <svg>, so we
+// rebuild the <i> fresh each time instead of mutating a detached node.
+function setThemeIcon(name) {
+  if (!themeToggle) return;
+  const existing = themeToggle.querySelector('.lucide') || themeToggle.querySelector('[data-lucide]');
+  if (existing) existing.remove();
+  const icon = document.createElement('i');
+  icon.setAttribute('data-lucide', name);
+  icon.className = 'icon icon-sm';
+  themeToggle.prepend(icon);
+  if (window.lucide) lucide.createIcons();
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  STATE.theme = theme;
+  localStorage.setItem('kodai_theme', theme);
+  setThemeIcon(theme === 'dark' ? 'sun-medium' : 'moon');
+}
+
+themeToggle.addEventListener('click', () => {
+  const next = STATE.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  showToast(`Theme switched to ${next} mode`, next === 'dark' ? 'moon' : 'sun-medium');
+});
+
+// ================= PROGRESS TRACKING =================
+function updateProgress() {
+  const cards = Array.from(document.querySelectorAll('.stop-card[data-spot-id]'));
+  const spotCount = (card) => parseInt(card.getAttribute('data-count') || '1', 10);
+  const total = cards.reduce((s, c) => s + spotCount(c), 0);
+  const count = cards.reduce((s, c) => s + (STATE.visited.includes(c.getAttribute('data-spot-id')) ? spotCount(c) : 0), 0);
+  const pct = total ? Math.round((count / total) * 100) : 0;
+
+  document.getElementById('visitedCount').textContent = `${count}/${total}`;
+  document.getElementById('progressBarFill').style.width = `${pct}%`;
+
+  // Update card styles
+  document.querySelectorAll('.stop-card[data-spot-id]').forEach(card => {
+    const id = card.getAttribute('data-spot-id');
+    const chk = card.querySelector('.stop-checkbox');
+    const isVisited = STATE.visited.includes(id);
+    if (chk) chk.checked = isVisited;
+    if (isVisited) {
+      card.classList.add('completed-card');
+      const marker = card.closest('.timeline-item')?.querySelector('.marker-node');
+      if (marker) marker.classList.add('completed');
+    } else {
+      card.classList.remove('completed-card');
+      const marker = card.closest('.timeline-item')?.querySelector('.marker-node');
+      if (marker) marker.classList.remove('completed');
+    }
+  });
+}
+
+document.querySelectorAll('.stop-card .stop-checkbox').forEach(chk => {
+  chk.addEventListener('change', (e) => {
+    e.stopPropagation();
+    const card = chk.closest('.stop-card');
+    const id = card.getAttribute('data-spot-id');
+    if (chk.checked) {
+      if (!STATE.visited.includes(id)) STATE.visited.push(id);
+      showToast('Spot marked as visited!', 'check');
+    } else {
+      STATE.visited = STATE.visited.filter(x => x !== id);
+    }
+    localStorage.setItem('kodai_visited', JSON.stringify(STATE.visited));
+    updateProgress();
   });
 });
 
-// Theme toggle (dark default, persist in localStorage)
-const toggle = document.getElementById('themeToggle');
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-}
-try {
-  const saved = localStorage.getItem('kodai-theme');
-  if (saved === 'light' || saved === 'dark') applyTheme(saved);
-} catch (e) {}
-// Initialize Lucide icons
-if (window.lucide) {
-  lucide.createIcons();
+// ================= ACCORDION EXPANSION =================
+document.querySelectorAll('.stop-card').forEach(card => {
+  const expandBtn = card.querySelector('.btn-expand');
+  const details = card.querySelector('.card-details');
+  if (expandBtn && details) {
+    expandBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = details.classList.toggle('open');
+      expandBtn.innerHTML = `<i data-lucide="${isOpen ? 'chevron-up' : 'chevron-down'}" class="icon-sm"></i>`;
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+});
+
+// ================= TAB NAVIGATION & FILTERING =================
+const tabBtns = document.querySelectorAll('.tab-btn');
+const day1Sec = document.getElementById('day1-section');
+const day2Sec = document.getElementById('day2-section');
+const tableSec = document.getElementById('table-section');
+
+// Lightweight helper: highlight a tab pill without changing view state.
+function setTabActive(tab) {
+  tabBtns.forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+  if (btn) btn.classList.add('active');
+  STATE.activeTab = tab;
 }
 
-toggle.addEventListener('click', () => {
-  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  const next = cur === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  try { localStorage.setItem('kodai-theme', next); } catch (e) {}
+// Full tab action: switch which sections are visible + scroll to it.
+function switchView(tab, scroll = true) {
+  setTabActive(tab);
+
+  if (tab === 'all') {
+    day1Sec.style.display = 'block';
+    day2Sec.style.display = 'block';
+    tableSec.style.display = 'block';
+    // Immediately reflect the section currently in view.
+    updateScrollSpy();
+  } else if (tab === 'day1') {
+    day1Sec.style.display = 'block';
+    day2Sec.style.display = 'none';
+    tableSec.style.display = 'none';
+    if (scroll) scrollToSection(day1Sec);
+  } else if (tab === 'day2') {
+    day1Sec.style.display = 'none';
+    day2Sec.style.display = 'block';
+    tableSec.style.display = 'none';
+    if (scroll) scrollToSection(day2Sec);
+  } else if (tab === 'table') {
+    day1Sec.style.display = 'none';
+    day2Sec.style.display = 'none';
+    tableSec.style.display = 'block';
+    if (scroll) scrollToSection(tableSec);
+  }
+}
+
+// Jump instantly to a section, keeping the sticky bars clear of its top.
+function scrollToSection(el) {
+  if (!el) return;
+  const y = el.getBoundingClientRect().top + window.scrollY - 130;
+  window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+}
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    switchView(btn.getAttribute('data-tab'));
+  });
+});
+
+// ================= SCROLL-SPY: ACTIVE TAB FOLLOWS SCROLL =================
+const spyTargets = [
+  { id: 'day1-section', tab: 'day1' },
+  { id: 'day2-section', tab: 'day2' },
+  { id: 'table-section', tab: 'table' }
+];
+
+let spyRaf = null;
+
+function updateScrollSpy() {
+  spyRaf = null;
+  const triggerLine = 200; // distance from viewport top that flips the active tab
+  let current = 'all';
+
+  // The last section whose top has crossed the trigger line wins.
+  for (const t of spyTargets) {
+    const el = document.getElementById(t.id);
+    if (!el || el.style.display === 'none') continue;
+    if (el.getBoundingClientRect().top <= triggerLine) current = t.tab;
+  }
+
+  // Pinned to the last visible section when scrolled to the very bottom.
+  const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 80);
+  if (atBottom) {
+    const visible = spyTargets.filter(t => {
+      const el = document.getElementById(t.id);
+      return el && el.style.display !== 'none';
+    });
+    if (visible.length) current = visible[visible.length - 1].tab;
+  }
+
+  if (STATE.activeTab !== current) setTabActive(current);
+}
+
+window.addEventListener('scroll', () => {
+  if (!spyRaf) spyRaf = requestAnimationFrame(updateScrollSpy);
+}, { passive: true });
+
+// ================= CHECKLIST PERSISTENCE =================
+const checklistCards = document.querySelectorAll('.check-card');
+checklistCards.forEach((card, idx) => {
+  const chk = card.querySelector('.stop-checkbox');
+  if (STATE.checklist.includes(idx)) {
+    chk.checked = true;
+    card.classList.add('checked');
+  }
+  card.addEventListener('click', (e) => {
+    if (e.target !== chk) chk.checked = !chk.checked;
+    if (chk.checked) {
+      if (!STATE.checklist.includes(idx)) STATE.checklist.push(idx);
+      card.classList.add('checked');
+    } else {
+      STATE.checklist = STATE.checklist.filter(x => x !== idx);
+      card.classList.remove('checked');
+    }
+    localStorage.setItem('kodai_checklist', JSON.stringify(STATE.checklist));
+  });
+});
+
+// ================= SHARE & EXPORT =================
+document.getElementById('shareBtn').addEventListener('click', () => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      showToast('Itinerary link copied to clipboard!', 'clipboard');
+    });
+  } else {
+    showToast('Kodaikanal Itinerary Ready!', 'share-2');
+  }
+});
+
+// ================= MASTER TABLE SORTING =================
+const masterTable = document.getElementById('masterTable');
+const masterTbody = masterTable ? masterTable.querySelector('tbody') : null;
+
+// Column-specific parsers so mixed formats sort meaningfully
+// (leg: km vs m, dwell: "1h 30m" vs "25m", alt: "1,920 m").
+const columnParsers = {
+  num: (txt) => parseInt(txt, 10) || 0,
+  name: (txt) => txt.trim().toLowerCase(),
+  rating: (txt) => parseFloat(txt) || 0,
+  leg: (txt) => {
+    const m = txt.match(/([\d.]+)\s*(km|m)/);
+    if (!m) return 0;
+    return m[2] === 'km' ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
+  },
+  dwell: (txt) => {
+    const m = txt.match(/(\d+)h\s*(\d+)m|(\d+)m/);
+    if (!m) return 0;
+    return m[1] ? parseInt(m[1], 10) * 60 + parseInt(m[2] || '0', 10) : parseInt(m[3], 10);
+  },
+  alt: (txt) => parseInt(txt.replace(/[^0-9]/g, ''), 10) || 0
+};
+
+masterTable?.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.sort;
+    const next = th.getAttribute('data-sorted') === 'asc' ? 'desc' : 'asc';
+    masterTable.querySelectorAll('th[data-sort]').forEach(h => h.removeAttribute('data-sorted'));
+    th.setAttribute('data-sorted', next);
+
+    const colIdx = Array.from(th.parentElement.children).indexOf(th);
+    const rows = Array.from(masterTbody.rows).sort((a, b) => {
+      const va = columnParsers[key](a.cells[colIdx].textContent);
+      const vb = columnParsers[key](b.cells[colIdx].textContent);
+      if (typeof va === 'string') {
+        return next === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+      }
+      return next === 'asc' ? va - vb : vb - va;
+    });
+    rows.forEach(row => masterTbody.appendChild(row));
+  });
+});
+
+// ================= KEYBOARD SHORTCUTS =================
+window.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === '1') {
+    document.querySelector('.tab-btn[data-tab="day1"]')?.click();
+  } else if (e.key === '2') {
+    document.querySelector('.tab-btn[data-tab="day2"]')?.click();
+  } else if (e.key === 't' || e.key === 'T') {
+    document.querySelector('.tab-btn[data-tab="table"]')?.click();
+  } else if (e.key === 'd' || e.key === 'D') {
+    themeToggle.click();
+  }
+});
+
+// ================= INITIAL LOAD =================
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme(STATE.theme);
+  updateProgress();
+  updateScrollSpy();
   if (window.lucide) lucide.createIcons();
 });
 </script>
